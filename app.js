@@ -21,11 +21,11 @@ try {
      No aplica             → excluido del cálculo
    ======================================================== */
 const SCORE_LEVELS = [
-    { key: 'insuficiente',  label: 'Insuficiente',  range: '< 3.0',    value: 2.5, cls: 'insuficiente'  },
-    { key: 'aceptable',     label: 'Aceptable',     range: '3.0 – 3.5', value: 3.0, cls: 'aceptable'     },
-    { key: 'bueno',         label: 'Bueno',         range: '3.6 – 4.5', value: 4.0, cls: 'bueno'         },
-    { key: 'sobresaliente', label: 'Sobresaliente', range: '> 4.5',     value: 5.0, cls: 'sobresaliente'  },
-    { key: 'na',            label: 'No aplica',     range: '',           value: null, cls: 'no-aplica'    }
+    { key: 'insuficiente',  label: 'Insuficiente',  range: '< 3.0',     cls: 'insuficiente'  },
+    { key: 'aceptable',     label: 'Aceptable',     range: '3.0 – 3.5', cls: 'aceptable'     },
+    { key: 'bueno',         label: 'Bueno',         range: '3.6 – 4.5', cls: 'bueno'         },
+    { key: 'sobresaliente', label: 'Sobresaliente', range: '> 4.5',     cls: 'sobresaliente'  },
+    { key: 'na',            label: 'No aplica',     range: '',           cls: 'no-aplica'     }
 ];
 
 // Almacena la selección actual: { itemId: { level, value } }
@@ -224,7 +224,6 @@ function renderRubric() {
             const block = document.createElement('div');
             block.className = 'rubric-item-block';
 
-            // Encabezado del ítem
             block.innerHTML = `
                 <div class="rubric-item-header">
                     <div>
@@ -240,11 +239,23 @@ function renderRubric() {
                         <button type="button"
                             class="score-btn ${level.cls}"
                             id="btn-${item.id}-${level.key}"
-                            onclick="selectScore('${item.id}', '${level.key}', ${level.value !== null ? level.value : 'null'}, this)">
+                            onclick="selectScore('${item.id}', '${level.key}', this)">
                             <strong>${level.label}</strong><br>
                             <span style="font-weight:400; font-size:0.72rem;">${level.range}</span>
                         </button>
                     `).join('')}
+                </div>
+                <div class="score-input-row hidden" id="input-row-${item.id}"
+                     style="padding:10px 15px; background:#f9fbfd; display:flex; align-items:center; gap:12px; border-top:1px solid #eee;">
+                    <label style="margin:0; font-size:0.88rem; white-space:nowrap;" for="exact-${item.id}">
+                        Nota exacta:
+                    </label>
+                    <input type="number" id="exact-${item.id}" step="0.5"
+                           style="width:100px; padding:8px 12px; font-size:1.1rem; font-weight:700;
+                                  text-align:center; border:2px solid var(--primary-color);
+                                  border-radius:8px; color:var(--primary-color);"
+                           oninput="updateExactScore('${item.id}')">
+                    <span id="range-hint-${item.id}" style="font-size:0.82rem; color:#666;"></span>
                 </div>
                 <div class="item-guide">
                     <strong>Guía:</strong>
@@ -259,16 +270,67 @@ function renderRubric() {
     });
 }
 
-function selectScore(itemId, levelKey, scoreValue, btnEl) {
+// Rangos permitidos por nivel
+const LEVEL_RANGES = {
+    insuficiente:  { min: 0.0, max: 2.5, step: 0.5, default: 2.0 },
+    aceptable:     { min: 3.0, max: 3.5, step: 0.5, default: 3.0 },
+    bueno:         { min: 3.5, max: 4.5, step: 0.5, default: 4.0 },
+    sobresaliente: { min: 4.5, max: 5.0, step: 0.5, default: 5.0 },
+    na:            { min: 0,   max: 0,   step: 0,   default: null }
+};
+
+function selectScore(itemId, levelKey, btnEl) {
     // Deseleccionar todos los botones de este ítem
     const btnGroup = document.getElementById(`btns-${itemId}`);
     btnGroup.querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
-
-    // Seleccionar el clickeado
     btnEl.classList.add('selected');
 
-    // Guardar selección
-    itemSelections[itemId] = { level: levelKey, value: scoreValue };
+    const inputRow = document.getElementById(`input-row-${itemId}`);
+    const exactInput = document.getElementById(`exact-${itemId}`);
+    const rangeHint = document.getElementById(`range-hint-${itemId}`);
+
+    if (levelKey === 'na') {
+        // No aplica: ocultar input y guardar null
+        inputRow.classList.add('hidden');
+        inputRow.style.display = 'none';
+        itemSelections[itemId] = { level: 'na', value: null };
+        return;
+    }
+
+    // Mostrar input con el rango correspondiente
+    const range = LEVEL_RANGES[levelKey];
+    exactInput.min = range.min;
+    exactInput.max = range.max;
+    exactInput.step = range.step;
+    exactInput.value = range.default;
+    rangeHint.innerText = `(Rango: ${range.min} – ${range.max})`;
+
+    inputRow.classList.remove('hidden');
+    inputRow.style.display = 'flex';
+    exactInput.focus();
+
+    // Guardar con valor por defecto
+    itemSelections[itemId] = { level: levelKey, value: range.default };
+}
+
+function updateExactScore(itemId) {
+    const sel = itemSelections[itemId];
+    if (!sel || sel.level === 'na') return;
+
+    const exactInput = document.getElementById(`exact-${itemId}`);
+    const range = LEVEL_RANGES[sel.level];
+    let val = parseFloat(exactInput.value);
+
+    // Validar dentro del rango
+    if (isNaN(val)) return;
+    if (val < range.min) { val = range.min; exactInput.value = val; }
+    if (val > range.max) { val = range.max; exactInput.value = val; }
+
+    // Redondear a 0.5
+    val = Math.round(val * 2) / 2;
+    exactInput.value = val;
+
+    itemSelections[itemId].value = val;
 }
 
 /* ========================================================
