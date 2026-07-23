@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Residentes Pediatría - HPTU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-container">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+            </div>
+            <h1>Evaluación de Residentes de Pediatría</h1>
+            <p class="subtitle">Hospital Pablo Tobón Uribe</p>
+        </header>
+
+        <main id="main-content" class="glass-panel">
+            <!-- Step 1: Seleccionar Año -->
+            <div id="step-year" class="step active">
+                <h2>Seleccione el Año de Residencia</h2>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="selectYear(1)">Año 1</button>
+                    <button class="option-btn disabled" onclick="alert('Próximamente')">Año 2</button>
+                    <button class="option-btn disabled" onclick="alert('Próximamente')">Año 3</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Seleccionar Asignatura -->
+            <div id="step-subject" class="step hidden">
+                <button class="back-btn" onclick="goBack('step-year')">← Volver</button>
+                <h2>Asignatura / Rotación</h2>
+                <div id="subjects-container" class="options-list">
+                    <!-- Se llena dinámicamente con JS -->
+                </div>
+            </div>
+
+            <!-- Step 3: Formulario de Evaluación -->
+            <div id="step-form" class="step hidden">
+                <button class="back-btn" onclick="goBack('step-subject')">← Volver</button>
+                <h2 id="form-subject-title" style="margin-bottom: 25px;">Título de la Asignatura</h2>
+                
+                <form id="evaluation-form" onsubmit="event.preventDefault(); calculateResults();">
+                    
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="resident-select">Residente a evaluar:</label>
+                            <select id="resident-select" required>
+                                <option value="">Cargando residentes...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group half">
+                            <label for="teacher-select">Docente evaluador:</label>
+                            <div class="combo-box">
+                                <select id="teacher-select" required onchange="checkNewTeacher(this)">
+                                    <option value="">Cargando docentes...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rubric-container">
+                        <h3>Rúbrica de Evaluación</h3>
+                        <p class="help-text">Ingrese una nota de <strong>0.0 a 5.0</strong> en cada ítem según el desempeño.</p>
+                        
+                        <div class="rubric-legend">
+                            <span class="legend-item danger">Insuficiente (0.0 - 2.9)</span>
+                            <span class="legend-item warning">Aceptable (3.0 - 3.74)</span>
+                            <span class="legend-item info">Bueno (3.75 - 4.24)</span>
+                            <span class="legend-item success">Sobresaliente (4.25 - 5.0)</span>
+                        </div>
+
+                        <div id="rubric-table-container">
+                            <!-- JS inyectará la tabla aquí -->
+                        </div>
+                        
+                        <div class="ethical-aspects form-group">
+                            <label>Aspectos Éticos (Requisito indispensable):</label>
+                            <p class="help-text">¿Conoce, aplica y respeta los principios éticos en la práctica médica?</p>
+                            <div class="radio-group">
+                                <label><input type="radio" name="eticos" value="SI" required> SÍ</label>
+                                <label><input type="radio" name="eticos" value="NO"> NO</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fortalezas">Observaciones - Fortalezas:</label>
+                        <textarea id="fortalezas" rows="3" placeholder="Aspectos destacados del desempeño..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mejoras">Observaciones - Por mejorar:</label>
+                        <textarea id="mejoras" rows="3" placeholder="Aspectos a trabajar y recomendaciones..."></textarea>
+                    </div>
+
+                    <button type="submit" id="submit-button" class="submit-btn">Guardar Evaluación y Generar Retroalimentación</button>
+                </form>
+            </div>
+
+            <!-- Step 4: Resultados -->
+            <div id="step-results" class="step hidden">
+                <h2>Resultados de Evaluación</h2>
+                <p class="success-message">✅ Evaluación guardada exitosamente en la base de datos.</p>
+                
+                <div class="results-summary">
+                    <div class="final-score">
+                        <span class="score-label">Nota Definitiva (/5.0)</span>
+                        <span class="score-value" id="final-score-value">0.0</span>
+                    </div>
+                    <div class="resident-info" id="result-resident-info">
+                        <!-- Info JS -->
+                    </div>
+                </div>
+
+                <div class="feedback-container">
+                    <h3>Retroalimentación</h3>
+                    <div id="generated-feedback" class="feedback-text">
+                        <!-- Texto JS -->
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="option-btn" onclick="window.print()">Imprimir Constancia</button>
+                    <button class="option-btn secondary" onclick="resetApp()">Nueva Evaluación</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modal para nuevo docente -->
+    <div id="new-teacher-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <h3>Agregar Docente a esta Rotación</h3>
+            <p class="help-text">El docente será asignado a la rotación actual.</p>
+            <input type="text" id="new-teacher-name" placeholder="Ej: Dr. Carlos Ruiz">
+            <div class="modal-actions">
+                <button onclick="saveNewTeacher()" class="option-btn">Guardar y Asignar</button>
+                <button onclick="closeTeacherModal()" class="option-btn secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Guardando en Supabase...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
