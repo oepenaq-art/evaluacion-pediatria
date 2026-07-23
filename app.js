@@ -236,7 +236,7 @@ function renderRubric() {
                 <div class="score-input-row hidden" id="input-row-${item.id}"
                      style="padding:10px 15px;background:#f9fbfd;display:flex;align-items:center;gap:12px;border-top:1px solid #eee;">
                     <label style="margin:0;font-size:0.88rem;white-space:nowrap;" for="exact-${item.id}">Nota (0.0 - 5.0):</label>
-                    <input type="number" id="exact-${item.id}" min="0.0" max="5.0" step="0.1" inputmode="decimal"
+                    <input type="text" id="exact-${item.id}" inputmode="decimal"
                            style="width:110px;padding:8px 12px;font-size:1.1rem;font-weight:700;text-align:center;border:2px solid var(--primary-color);border-radius:8px;color:var(--primary-color);"
                            oninput="updateExactScore('${item.id}')"
                            onblur="clampScore('${item.id}')">
@@ -269,26 +269,25 @@ function selectScore(itemId, levelKey, btnEl) {
     }
 
     const range = LEVEL_RANGES[levelKey];
-    exactInput.min = "0.0";
-    exactInput.max = "5.0";
-    exactInput.step = "0.1";
     exactInput.inputMode = "decimal";
     
     // Si no había nada o cambia de nivel, colocamos la nota sugerida por defecto
     if (!itemSelections[itemId] || itemSelections[itemId].level === 'na' || itemSelections[itemId].level !== levelKey) {
-        exactInput.value = range.default;
+        exactInput.value = range.default.toString().replace('.', ',');
     }
     
     rangeHint.innerText = `(Ref. ${range.min}–${range.max} | libre 0.0 a 5.0)`;
     inputRow.classList.remove('hidden'); inputRow.style.display = 'flex';
-    itemSelections[itemId] = { level: levelKey, value: parseFloat(exactInput.value) };
+    
+    let parsedVal = parseFloat(exactInput.value.replace(',', '.'));
+    itemSelections[itemId] = { level: levelKey, value: isNaN(parsedVal) ? range.default : parsedVal };
 }
 
 function updateExactScore(itemId) {
     const sel = itemSelections[itemId];
     if (!sel || sel.level === 'na') return;
     const exactInput = document.getElementById(`exact-${itemId}`);
-    let val = parseFloat(exactInput.value);
+    let val = parseFloat(exactInput.value.replace(',', '.'));
     if (!isNaN(val)) {
         itemSelections[itemId].value = val;
     }
@@ -298,12 +297,12 @@ function clampScore(itemId) {
     const sel = itemSelections[itemId];
     if (!sel || sel.level === 'na') return;
     const exactInput = document.getElementById(`exact-${itemId}`);
-    let val = parseFloat(exactInput.value);
+    let val = parseFloat(exactInput.value.replace(',', '.'));
     if (isNaN(val)) val = 0.0;
     if (val < 0) val = 0.0;
     if (val > 5) val = 5.0;
     val = Math.round(val * 10) / 10;
-    exactInput.value = val;
+    exactInput.value = val.toString().replace('.', ',');
     itemSelections[itemId].value = val;
 }
 
