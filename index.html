@@ -14,10 +14,8 @@
     <div class="background-overlay"></div>
     <div class="app-container">
         <header class="app-header">
-            <div class="logo-container">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                </svg>
+            <div class="logo-container" style="background: none; border-radius: 0; box-shadow: none; width: auto; height: 100px; margin-bottom: 20px;">
+                <img src="logo-eia.png" alt="Universidad EIA" style="height: 100%; object-fit: contain;">
             </div>
             <h1>Evaluación de Residentes de Pediatría EIA</h1>
             <p class="subtitle">Hospital Pablo Tobón Uribe</p>
@@ -32,6 +30,11 @@
                     <button class="option-btn disabled" onclick="alert('Próximamente')">Año 2</button>
                     <button class="option-btn disabled" onclick="alert('Próximamente')">Año 3</button>
                 </div>
+                <hr style="margin: 30px 0; border: none; border-top: 2px solid #e0e0e0;">
+                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Área de Coordinación</h3>
+                <button class="option-btn report-btn" onclick="openPinModal()">
+                    📊 Informe Final de Rotación (Coordinador)
+                </button>
             </div>
 
             <!-- Step 2: Asignatura -->
@@ -67,7 +70,7 @@
 
                     <div class="rubric-container">
                         <h3>Rúbrica de Evaluación</h3>
-                        <p class="help-text">Seleccione el nivel de desempeño en cada ítem. Use <strong>"No aplica"</strong> si el ítem no fue observable en esta rotación.</p>
+                        <p class="help-text">Seleccione el nivel de desempeño y ajuste la nota exacta. Use <strong>"No aplica"</strong> si el ítem no fue observable.</p>
                         <div class="rubric-legend">
                             <span class="legend-item danger">Insuficiente (0.0 – 2.9)</span>
                             <span class="legend-item warning">Aceptable (3.0 – 3.5)</span>
@@ -119,6 +122,53 @@
                     <button class="option-btn secondary" onclick="resetApp()">Nueva Evaluación</button>
                 </div>
             </div>
+
+            <!-- Step 5: Informe Final (Coordinador) -->
+            <div id="step-report" class="step hidden">
+                <button class="back-btn" onclick="goBack('step-year')">← Volver</button>
+                <h2>📊 Informe Final Consolidado de Rotación</h2>
+                <p class="help-text" style="margin-bottom:20px;">Genera un informe Word con promedios de todas las evaluaciones del período y análisis por inteligencia artificial, contextualizado con el microcurrículo de la rotación.</p>
+
+                <div class="form-group">
+                    <label for="report-resident">Residente:</label>
+                    <select id="report-resident" required>
+                        <option value="">Seleccione residente...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="report-rotation">Rotación:</label>
+                    <select id="report-rotation" required>
+                        <option value="">Seleccione rotación...</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="report-date-from">Desde:</label>
+                        <input type="date" id="report-date-from" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="report-date-to">Hasta:</label>
+                        <input type="date" id="report-date-to" required>
+                    </div>
+                </div>
+
+                <button class="submit-btn" style="background:var(--primary-color); margin-top:10px;" onclick="searchEvaluations()">
+                    🔍 Buscar Evaluaciones en el Período
+                </button>
+
+                <div id="report-preview" class="hidden" style="margin-top:25px;">
+                    <div class="report-preview-box">
+                        <h3>Evaluaciones Encontradas</h3>
+                        <div id="report-preview-content"></div>
+                    </div>
+                    <button class="submit-btn" style="background:#1a6632;" onclick="generateFinalReport()">
+                        📄 Generar Informe Word con IA
+                    </button>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -149,12 +199,29 @@
         </div>
     </div>
 
-    <!-- Loading -->
-    <div id="loading-overlay" class="loading-overlay hidden">
-        <div class="spinner"></div>
-        <p>Guardando en Supabase...</p>
+    <!-- Modal PIN Coordinador -->
+    <div id="pin-modal" class="modal hidden">
+        <div class="modal-content glass-panel" style="text-align:center;">
+            <h3>🔒 Acceso de Coordinador</h3>
+            <p class="help-text">Ingrese el PIN de coordinador para acceder al informe final de rotación.</p>
+            <input type="password" id="coordinator-pin" placeholder="PIN" maxlength="10"
+                   style="text-align:center; font-size:1.5rem; letter-spacing:8px; max-width:200px; margin:15px auto; display:block;"
+                   onkeydown="if(event.key==='Enter') verifyPin()">
+            <p id="pin-error" class="hidden" style="color:var(--danger); font-weight:600; margin-top:10px;">PIN incorrecto</p>
+            <div class="modal-actions" style="justify-content:center;">
+                <button onclick="verifyPin()" class="option-btn">Acceder</button>
+                <button onclick="closePinModal()" class="option-btn secondary">Cancelar</button>
+            </div>
+        </div>
     </div>
 
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p id="loading-text">Procesando...</p>
+    </div>
+
+    <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
