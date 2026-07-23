@@ -47,7 +47,10 @@
 
             <!-- Step 3: Formulario de Evaluación -->
             <div id="step-form" class="step hidden">
-                <button class="back-btn" onclick="goBack('step-subject')">← Volver</button>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <button class="back-btn" style="margin: 0;" onclick="goBack('step-subject')">← Volver</button>
+                    <button class="option-btn secondary" style="margin: 0; padding: 8px 16px; font-size: 0.9rem;" onclick="openFullRubric()">📄 Ver Rúbrica Completa</button>
+                </div>
                 <h2 id="form-subject-title" style="margin-bottom: 25px;">Título de la Asignatura</h2>
                 
                 <form id="evaluation-form" onsubmit="event.preventDefault(); calculateResults();">
@@ -149,6 +152,22 @@
             <div class="modal-actions">
                 <button onclick="saveNewTeacher()" class="option-btn">Guardar y Asignar</button>
                 <button onclick="closeTeacherModal()" class="option-btn secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Rúbrica Completa -->
+    <div id="full-rubric-modal" class="modal hidden">
+        <div class="modal-content glass-panel" style="max-width: 900px; max-height: 80vh; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="margin: 0;">Rúbrica de Evaluación Completa</h3>
+                <button onclick="closeFullRubric()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color);">&times;</button>
+            </div>
+            <div id="full-rubric-content">
+                <!-- Se inyecta con JS -->
+            </div>
+            <div class="modal-actions" style="margin-top: 20px;">
+                <button onclick="closeFullRubric()" class="option-btn">Cerrar</button>
             </div>
         </div>
     </div>
