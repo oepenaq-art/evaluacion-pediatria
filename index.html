@@ -8,12 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <!-- Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <div class="background-overlay"></div>
-    
     <div class="app-container">
         <header class="app-header">
             <div class="logo-container">
@@ -26,7 +24,7 @@
         </header>
 
         <main id="main-content" class="glass-panel">
-            <!-- Step 1: Seleccionar Año -->
+            <!-- Step 1: Año -->
             <div id="step-year" class="step active">
                 <h2>Seleccione el Año de Residencia</h2>
                 <div class="options-grid">
@@ -36,25 +34,22 @@
                 </div>
             </div>
 
-            <!-- Step 2: Seleccionar Asignatura -->
+            <!-- Step 2: Asignatura -->
             <div id="step-subject" class="step hidden">
                 <button class="back-btn" onclick="goBack('step-year')">← Volver</button>
                 <h2>Asignatura / Rotación</h2>
-                <div id="subjects-container" class="options-list">
-                    <!-- Se llena dinámicamente con JS -->
-                </div>
+                <div id="subjects-container" class="options-list"></div>
             </div>
 
-            <!-- Step 3: Formulario de Evaluación -->
+            <!-- Step 3: Formulario -->
             <div id="step-form" class="step hidden">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                    <button class="back-btn" style="margin: 0;" onclick="goBack('step-subject')">← Volver</button>
-                    <button class="option-btn secondary" style="margin: 0; padding: 8px 16px; font-size: 0.9rem;" onclick="openFullRubric()">📄 Ver Rúbrica Completa</button>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
+                    <button class="back-btn" style="margin:0;" onclick="goBack('step-subject')">← Volver</button>
+                    <button class="option-btn secondary" style="margin:0; padding:8px 16px; font-size:0.9rem;" onclick="openFullRubric()">📄 Ver Rúbrica Completa</button>
                 </div>
-                <h2 id="form-subject-title" style="margin-bottom: 25px;">Título de la Asignatura</h2>
-                
+                <h2 id="form-subject-title" style="margin-bottom:25px;">Título de la Asignatura</h2>
+
                 <form id="evaluation-form" onsubmit="event.preventDefault(); calculateResults();">
-                    
                     <div class="form-row">
                         <div class="form-group half">
                             <label for="resident-select">Residente a evaluar:</label>
@@ -62,33 +57,27 @@
                                 <option value="">Cargando residentes...</option>
                             </select>
                         </div>
-
                         <div class="form-group half">
                             <label for="teacher-select">Docente evaluador:</label>
-                            <div class="combo-box">
-                                <select id="teacher-select" required onchange="checkNewTeacher(this)">
-                                    <option value="">Cargando docentes...</option>
-                                </select>
-                            </div>
+                            <select id="teacher-select" required onchange="checkNewTeacher(this)">
+                                <option value="">Cargando docentes...</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="rubric-container">
                         <h3>Rúbrica de Evaluación</h3>
-                        <p class="help-text">Ingrese una nota de <strong>0.0 a 5.0</strong> en cada ítem según el desempeño.</p>
-                        
+                        <p class="help-text">Seleccione el nivel de desempeño en cada ítem. Use <strong>"No aplica"</strong> si el ítem no fue observable en esta rotación.</p>
                         <div class="rubric-legend">
-                            <span class="legend-item danger">Insuficiente (0.0 - 2.9)</span>
-                            <span class="legend-item warning">Aceptable (3.0 - 3.74)</span>
-                            <span class="legend-item info">Bueno (3.75 - 4.24)</span>
-                            <span class="legend-item success">Sobresaliente (4.25 - 5.0)</span>
+                            <span class="legend-item danger">Insuficiente (&lt; 3.0)</span>
+                            <span class="legend-item warning">Aceptable (3.0 – 3.5)</span>
+                            <span class="legend-item info">Bueno (3.6 – 4.5)</span>
+                            <span class="legend-item success">Sobresaliente (&gt; 4.5)</span>
+                            <span class="legend-item na">No aplica</span>
                         </div>
+                        <div id="rubric-table-container"></div>
 
-                        <div id="rubric-table-container">
-                            <!-- JS inyectará la tabla aquí -->
-                        </div>
-                        
-                        <div class="ethical-aspects form-group">
+                        <div class="ethical-aspects form-group" style="margin-top:20px;">
                             <label>Aspectos Éticos (Requisito indispensable):</label>
                             <p class="help-text">¿Conoce, aplica y respeta los principios éticos en la práctica médica?</p>
                             <div class="radio-group">
@@ -102,48 +91,38 @@
                         <label for="fortalezas">Observaciones - Fortalezas:</label>
                         <textarea id="fortalezas" rows="3" placeholder="Aspectos destacados del desempeño..."></textarea>
                     </div>
-
                     <div class="form-group">
                         <label for="mejoras">Observaciones - Por mejorar:</label>
                         <textarea id="mejoras" rows="3" placeholder="Aspectos a trabajar y recomendaciones..."></textarea>
                     </div>
-
-                    <button type="submit" id="submit-button" class="submit-btn">Guardar Evaluación y Generar Retroalimentación</button>
+                    <button type="submit" id="submit-button" class="submit-btn">Guardar Evaluación y Ver Resultados</button>
                 </form>
             </div>
 
             <!-- Step 4: Resultados -->
             <div id="step-results" class="step hidden">
                 <h2>Resultados de Evaluación</h2>
-                <p class="success-message">✅ Evaluación guardada exitosamente en la base de datos.</p>
-                
+                <p class="success-message">✅ Evaluación guardada exitosamente.</p>
                 <div class="results-summary">
                     <div class="final-score">
                         <span class="score-label">Nota Definitiva (/5.0)</span>
                         <span class="score-value" id="final-score-value">0.0</span>
                     </div>
-                    <div class="resident-info" id="result-resident-info">
-                        <!-- Info JS -->
-                    </div>
+                    <div class="resident-info" id="result-resident-info"></div>
                 </div>
-
                 <div class="feedback-container">
                     <h3>Retroalimentación</h3>
-                    <div id="generated-feedback" class="feedback-text">
-                        <!-- Texto JS -->
-                    </div>
+                    <div id="generated-feedback" class="feedback-text"></div>
                 </div>
-
                 <div class="actions">
-                    <button class="option-btn" onclick="window.print()">Imprimir Constancia</button>
+                    <button class="option-btn" onclick="window.print()">🖨️ Imprimir Constancia</button>
                     <button class="option-btn secondary" onclick="resetApp()">Nueva Evaluación</button>
                 </div>
             </div>
-
         </main>
     </div>
 
-    <!-- Modal para nuevo docente -->
+    <!-- Modal nuevo docente -->
     <div id="new-teacher-modal" class="modal hidden">
         <div class="modal-content glass-panel">
             <h3>Agregar Docente a esta Rotación</h3>
@@ -156,23 +135,21 @@
         </div>
     </div>
 
-    <!-- Modal para Rúbrica Completa -->
+    <!-- Modal Rúbrica Completa -->
     <div id="full-rubric-modal" class="modal hidden">
-        <div class="modal-content glass-panel" style="max-width: 900px; max-height: 80vh; overflow-y: auto;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 style="margin: 0;">Rúbrica de Evaluación Completa</h3>
-                <button onclick="closeFullRubric()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color);">&times;</button>
+        <div class="modal-content glass-panel" style="max-width:960px; max-height:85vh; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="margin:0;">Rúbrica de Evaluación Completa</h3>
+                <button onclick="closeFullRubric()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
             </div>
-            <div id="full-rubric-content">
-                <!-- Se inyecta con JS -->
-            </div>
-            <div class="modal-actions" style="margin-top: 20px;">
+            <div id="full-rubric-content"></div>
+            <div class="modal-actions" style="margin-top:20px;">
                 <button onclick="closeFullRubric()" class="option-btn">Cerrar</button>
             </div>
         </div>
     </div>
 
-    <!-- Loading Overlay -->
+    <!-- Loading -->
     <div id="loading-overlay" class="loading-overlay hidden">
         <div class="spinner"></div>
         <p>Guardando en Supabase...</p>
