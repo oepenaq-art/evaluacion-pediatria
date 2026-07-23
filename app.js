@@ -21,10 +21,10 @@ try {
      No aplica             → excluido del cálculo
    ======================================================== */
 const SCORE_LEVELS = [
-    { key: 'insuficiente',  label: 'Insuficiente',  range: '< 3.0',     cls: 'insuficiente'  },
+    { key: 'insuficiente',  label: 'Insuficiente',  range: '0.0 – 2.9', cls: 'insuficiente'  },
     { key: 'aceptable',     label: 'Aceptable',     range: '3.0 – 3.5', cls: 'aceptable'     },
     { key: 'bueno',         label: 'Bueno',         range: '3.6 – 4.5', cls: 'bueno'         },
-    { key: 'sobresaliente', label: 'Sobresaliente', range: '> 4.5',     cls: 'sobresaliente'  },
+    { key: 'sobresaliente', label: 'Sobresaliente', range: '4.6 – 5.0', cls: 'sobresaliente'  },
     { key: 'na',            label: 'No aplica',     range: '',           cls: 'no-aplica'     }
 ];
 
@@ -272,10 +272,10 @@ function renderRubric() {
 
 // Rangos permitidos por nivel
 const LEVEL_RANGES = {
-    insuficiente:  { min: 0.0, max: 2.5, step: 0.5, default: 2.0 },
-    aceptable:     { min: 3.0, max: 3.5, step: 0.5, default: 3.0 },
-    bueno:         { min: 3.5, max: 4.5, step: 0.5, default: 4.0 },
-    sobresaliente: { min: 4.5, max: 5.0, step: 0.5, default: 5.0 },
+    insuficiente:  { min: 0.0, max: 2.9, step: 0.1, default: 2.0 },
+    aceptable:     { min: 3.0, max: 3.5, step: 0.1, default: 3.0 },
+    bueno:         { min: 3.6, max: 4.5, step: 0.1, default: 4.0 },
+    sobresaliente: { min: 4.6, max: 5.0, step: 0.1, default: 5.0 },
     na:            { min: 0,   max: 0,   step: 0,   default: null }
 };
 
@@ -321,13 +321,12 @@ function updateExactScore(itemId) {
     const range = LEVEL_RANGES[sel.level];
     let val = parseFloat(exactInput.value);
 
-    // Validar dentro del rango
     if (isNaN(val)) return;
     if (val < range.min) { val = range.min; exactInput.value = val; }
     if (val > range.max) { val = range.max; exactInput.value = val; }
 
-    // Redondear a 0.5
-    val = Math.round(val * 2) / 2;
+    // Redondear a 1 décima
+    val = Math.round(val * 10) / 10;
     exactInput.value = val;
 
     itemSelections[itemId].value = val;
