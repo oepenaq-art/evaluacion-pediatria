@@ -5,10 +5,14 @@
 const SUPABASE_URL = 'https://wgsnjayvreknhsikgqbn.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_sp0h2Qle7Fj660C0ht9tNA_Q8edhQ68';
 
-// Inicializar cliente de Supabase (Solo funciona si las claves son correctas)
-let supabase = null;
-if (SUPABASE_URL !== 'AQUI_VA_TU_URL') {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Inicializar cliente de Supabase
+let supabaseClient = null;
+try {
+    if (SUPABASE_URL !== 'AQUI_VA_TU_URL' && typeof supabase !== 'undefined') {
+        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+} catch (e) {
+    console.error("Error inicializando Supabase:", e);
 }
 
 /* ========================================================
@@ -106,8 +110,8 @@ async function loadResidents() {
     const select = document.getElementById('resident-select');
     select.innerHTML = '<option value="">Seleccione residente...</option>';
     
-    if (supabase) {
-        const { data, error } = await supabase.from('residentes').select('id, nombre').eq('año', 1);
+    if (supabaseClient) {
+        const { data, error } = await supabaseClient.from('residentes').select('id, nombre').eq('año', 1);
         if (!error && data) {
             data.forEach(r => select.add(new Option(r.nombre, r.id)));
             return;
@@ -123,8 +127,8 @@ async function loadTeachers(rotacion) {
     const select = document.getElementById('teacher-select');
     select.innerHTML = '<option value="">Seleccione docente...</option>';
     
-    if (supabase) {
-        const { data, error } = await supabase.from('docentes').select('id, nombre').eq('rotacion', rotacion);
+    if (supabaseClient) {
+        const { data, error } = await supabaseClient.from('docentes').select('id, nombre').eq('rotacion', rotacion);
         if (!error && data) {
             data.forEach(t => select.add(new Option(t.nombre, t.id)));
         }
@@ -153,8 +157,8 @@ async function saveNewTeacher() {
     
     document.getElementById('loading-overlay').classList.remove('hidden');
     
-    if (supabase) {
-        const { data, error } = await supabase.from('docentes').insert([{ nombre: name, rotacion: selectedSubjectName }]).select();
+    if (supabaseClient) {
+        const { data, error } = await supabaseClient.from('docentes').insert([{ nombre: name, rotacion: selectedSubjectName }]).select();
         if (!error && data) {
             const select = document.getElementById('teacher-select');
             const option = new Option(data[0].nombre, data[0].id);
@@ -268,7 +272,7 @@ async function calculateResults() {
     else scoreUI.style.color = 'var(--success)';
 
     // 3. Guardar en Base de Datos (Si está configurado)
-    if (supabase) {
+    if (supabaseClient) {
         document.getElementById('loading-overlay').classList.remove('hidden');
         const insertData = {
             residente_id: residentSelect.value,
@@ -280,7 +284,7 @@ async function calculateResults() {
             por_mejorar: mejoras
         };
         
-        await supabase.from('evaluaciones').insert([insertData]);
+        await supabaseClient.from('evaluaciones').insert([insertData]);
         document.getElementById('loading-overlay').classList.add('hidden');
     }
 
