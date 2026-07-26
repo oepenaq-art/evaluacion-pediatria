@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isCoordinador() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.rol == 'coordinador';
+    }
+
+    // Colección de Usuarios
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isCoordinador() || request.auth.uid == userId;
+    }
+
+    // Colección de Residentes
+    match /residentes/{residentId} {
+      allow read: if isAuthenticated();
+      allow write: if isCoordinador();
+    }
+
+    // Colección de Evaluaciones
+    match /evaluaciones/{evalId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isCoordinador();
+    }
+
+    // Detalle de Ítems por Evaluación
+    match /evaluacion_items/{itemId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isCoordinador();
+    }
+  }
+}
