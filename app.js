@@ -286,7 +286,6 @@ COMPETENCIAS ESPECÍFICAS: Embriología, anatomía y semiología del SNC en etap
 SABERES ESENCIALES: Semiología neurológica pediátrica. Neurodesarrollo normal. Niño con hipotonía. Abordaje de primera convulsión. Síndromes epilépticos en la infancia. Retardo en neurodesarrollo (motor, fino, lenguaje). Parálisis cerebral. Infecciones del SNC. Enfermedades autoinmunes del SNC. Alteración del sensorio. Cefalea y migraña. Hipertensión intracraneal. Parálisis flácidas agudas. Compromiso de médula espinal. Alteraciones del movimiento. Síndrome de Down y TEA. ACV y malformaciones arteriovenosas. Facomatosis.
 DESENLACES: Anamnesis y examen físico enfocado en enfermedad neurológica. Evaluación de hitos del neurodesarrollo y desviaciones. Identificar factores de riesgo. Interpretar pruebas diagnósticas. Fisiopatología de enfermedades neurológicas. Principios de neurofármacos. Pruebas de tamizaje. Comunicación asertiva con padres. Rol docente activo con estudiantes de pregrado.`
 };
-
 let selectedSubjectName = "";
 let reportEvaluations = []; // Evaluaciones encontradas para el informe
 
