@@ -171,7 +171,8 @@ const subjectsYear1 = [
     "Psiquiatría pediátrica",
     "Hospitalización pediátrica tercer nivel fundamentación",
     "Neumología y alergología pediátrica",
-    "Neurología y rehabilitación pediátrica"
+    "Neurología y rehabilitación pediátrica",
+    "Urgencias pediátricas III nivel de fundamentación"
 ];
 
 const rubricStructure = [
