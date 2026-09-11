@@ -87,6 +87,22 @@
                                 <option value="">Cargando residentes...</option>
                             </select>
                         </div>
+                        
+                        <div class="form-group" style="width: 100%;">
+                            <label for="evaluation-type">Tipo de evaluación:</label>
+                            <select id="evaluation-type" required onchange="handleEvaluationTypeChange()">
+                                <option value="ronda">Ronda Médica (50%)</option>
+                                <option value="seminario">Seminario (30% o 50%)</option>
+                                <option value="tema_central" id="opt-tema-central" class="hidden">Tema Central (20%)</option>
+                                <option value="minicex" id="opt-minicex" class="hidden">MiniCEX (20%)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group hidden" id="seminar-name-container" style="width: 100%;">
+                            <label for="seminar-name">Nombre de la actividad (Seminario, Tema, etc.):</label>
+                            <input type="text" id="seminar-name" placeholder="Ej: Neumonía adquirida en la comunidad">
+                        </div>
+
                         <!-- El select de docente está oculto porque se autocompleta con la sesión activa -->
                         <select id="teacher-select" required class="hidden">
                             <option value="">Cargando docentes...</option>
@@ -260,3 +276,4 @@
     <script src="app.js"></script>
 </body>
 </html>
+
