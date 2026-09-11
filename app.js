@@ -175,6 +175,138 @@ const subjectsYear1 = [
     "Urgencias pediátricas III nivel de fundamentación"
 ];
 
+const rubricSeminario = [
+    {
+        category: "Contenido Científico (100%)",
+        items: [
+            {
+                id: "sem_dominio", title: "Dominio del tema",
+                desc: "Demuestra conocimiento, responde preguntas y usa terminología.",
+                weight: 0.35,
+                details: {
+                    insuficiente: "Conocimiento insuficiente, explicaciones confusas, no responde preguntas.",
+                    aceptable: "Conocimiento aceptable, áreas de confusión. Responde de manera limitada.",
+                    bueno: "Buen conocimiento, algunas áreas requieren mayor claridad. Responde adecuadamente.",
+                    sobresaliente: "Excelente conocimiento, explicaciones claras, precisas, responde correctamente todo."
+                }
+            },
+            {
+                id: "sem_correlacion", title: "Correlación básico-clínica",
+                desc: "Integra conceptos básicos con la clínica y ejemplos.",
+                weight: 0.30,
+                details: {
+                    insuficiente: "No logra correlacionar conceptos básicos con la clínica o lo hace erróneamente.",
+                    aceptable: "Correlación básica aceptable, ejemplos limitados o poco precisos.",
+                    bueno: "Buena correlación, aunque faltan ejemplos o están mal explicados.",
+                    sobresaliente: "Integra de manera excelente, ejemplos claros y bien contextualizados."
+                }
+            },
+            {
+                id: "sem_argumentacion", title: "Capacidad de argumentación",
+                desc: "Sustenta ideas con evidencia científica y lógica.",
+                weight: 0.20,
+                details: {
+                    insuficiente: "Sin argumentación coherente o clara, ideas mal organizadas, sin evidencia.",
+                    aceptable: "Argumentación básica, ideas mal desarrolladas, falta evidencia o incoherencias.",
+                    bueno: "Argumentación adecuada, falta profundidad en evidencia.",
+                    sobresaliente: "Argumentación sólida, coherente, basada en evidencia, defiende ideas."
+                }
+            },
+            {
+                id: "sem_claridad", title: "Claridad y organización",
+                desc: "Estructura, orden lógico y comprensión del tema.",
+                weight: 0.15,
+                details: {
+                    insuficiente: "Exposición caótica, sin orden lógico, impide comprensión.",
+                    aceptable: "Comprensible pero falta estructura o hay momentos confusos.",
+                    bueno: "Exposición adecuada, algunos momentos de desorganización.",
+                    sobresaliente: "Clara, bien estructurada, orden lógico, facilita comprensión."
+                }
+            }
+        ]
+    }
+];
+
+const rubricTemaCentral = [
+    {
+        category: "Contenido Científico y Presentación (100%)",
+        items: [
+            {
+                id: "tc_dominio", title: "Dominio del tema",
+                desc: "Conocimiento, explicaciones y terminología.",
+                weight: 0.25,
+                details: {
+                    insuficiente: "No demuestra conocimiento, explicaciones incorrectas/confusas.",
+                    aceptable: "Conocimiento básico, explicaciones confusas, uso incorrecto de terminología.",
+                    bueno: "Conoce bien, algunas explicaciones confusas, errores menores.",
+                    sobresaliente: "Conocimiento profundo, mayormente claras, imprecisiones menores.",
+                    excelente: "Dominio completo, explicaciones claras, sin errores, responde a todas las preguntas."
+                }
+            },
+            {
+                id: "tc_correlacion", title: "Correlación básico-clínica",
+                desc: "Integración de conceptos y ejemplos relevantes.",
+                weight: 0.20,
+                details: {
+                    insuficiente: "No hay correlación clara, sin ejemplos o mal aplicados.",
+                    aceptable: "Correlación limitada, ejemplos inadecuados, dificulta comprensión.",
+                    bueno: "Correlación básica, ejemplos no siempre claros.",
+                    sobresaliente: "Integra bien, ejemplos pertinentes, falta algo de profundidad.",
+                    excelente: "Integra conceptos con gran precisión, ejemplos relevantes y aplicados."
+                }
+            },
+            {
+                id: "tc_argumentacion", title: "Capacidad de argumentación",
+                desc: "Argumentos estructurados y basados en evidencia.",
+                weight: 0.20,
+                details: {
+                    insuficiente: "No desarrolla argumentos coherentes ni base científica.",
+                    aceptable: "Argumentación débil, razonamientos poco claros, evidencia insuficiente.",
+                    bueno: "Argumentación coherente, evidencia suficiente pero no robusta.",
+                    sobresaliente: "Argumenta claro y fundamentado, falta profundidad en detalles.",
+                    excelente: "Argumentos coherentes, estructurados, fundamentados y defiende bien puntos."
+                }
+            },
+            {
+                id: "tc_claridad", title: "Claridad y organización",
+                desc: "Estructura, orden y fluidez de la exposición.",
+                weight: 0.15,
+                details: {
+                    insuficiente: "Presentación caótica, confusa, sin orden lógico.",
+                    aceptable: "Presentación desorganizada, interrupciones o falta de coherencia.",
+                    bueno: "Presentación comprensible, fluidez intermitente, partes confusas.",
+                    sobresaliente: "Mayormente clara y estructurada, exposición fluida en su mayoría.",
+                    excelente: "Clara, bien estructurada, orden lógico, fluida sin interrupciones."
+                }
+            },
+            {
+                id: "tc_ayudas", title: "Ayudas didácticas",
+                desc: "Calidad e integración de recursos visuales.",
+                weight: 0.10,
+                details: {
+                    insuficiente: "Sin recursos visuales o de muy baja calidad, no aportan.",
+                    aceptable: "Recursos insuficientes o mal utilizados, no aportan significativamente.",
+                    bueno: "Recursos funcionales, no siempre bien integrados, aportan algo.",
+                    sobresaliente: "Recursos adecuados y bien utilizados, podrían mejorarse.",
+                    excelente: "Recursos visuales de alta calidad, bien integrados, facilitan comprensión."
+                }
+            },
+            {
+                id: "tc_entorno", title: "Adaptación a entorno virtual",
+                desc: "Manejo de plataforma, audio/video e interacción.",
+                weight: 0.10,
+                details: {
+                    insuficiente: "No maneja bien plataforma, problemas graves, sin interacción.",
+                    aceptable: "Problemas técnicos frecuentes, interacción insuficiente.",
+                    bueno: "Maneja plataforma con problemas menores, interacción limitada.",
+                    sobresaliente: "Maneja bien, pequeños problemas técnicos, interacción adecuada.",
+                    excelente: "Maneja plataforma con destreza, excelente audio/video, interacción fluida."
+                }
+            }
+        ]
+    }
+];
+
 const rubricStructure = [
     {
         category: "Conocimientos académicos (25%)",
@@ -289,10 +421,11 @@ DESENLACES: Anamnesis y examen físico enfocado en enfermedad neurológica. Eval
 
     "Urgencias pediátricas III nivel de fundamentación": `ASIGNATURA: Urgencias pediátricas III nivel de fundamentación.
 JUSTIFICACIÓN: El pediatra egresado de la Universidad requiere tener conocimientos robustos en la atención de emergencias pediátricas en los niños que se presenten en los diferentes niveles de complejidad. Al enfrentarse al paciente con enfermedad aguda que asiste a un tercer nivel de atención, se hace necesario integrar la fisiología del niño sano y del que se presenta con una condición aguda que requiere priorización, estabilización y en muchas ocasiones manejo interdisciplinario y uso adecuado de la tecnología y los recursos disponibles.
-COMPETENCIAS ESPECÍFICAS: Identifica el niño que requiere atención prioritaria al presentarse al servicio de emergencias de un tercer nivel de complejidad. Mediante el uso del abordaje primario y secundario, realiza una aproximación y manejo inicial y sistematizado basado en la etiología y a su vez estabilización del niño que consulta al servicio de urgencias del tercer nivel de atención. Integra la fisiología y fisiopatología de la agudización con la epidemiología local como datos relevantes para realizar diagnósticos diferenciales en el niño que ingresa al servicio de urgencias. Conoce, utiliza e interpreta en forma racional las ayudas diagnósticas a partir de la historia clínica realizada. Conoce las principales medidas terapéuticas farmacológicas y no farmacológicas para el manejo de las patologías más frecuentes en urgencias de tercer nivel de atención. Participa de forma activa en la estabilización inicial del paciente que ingresa por descompensación aguda al servicio de urgencias. Conoce y desarrolla procedimientos en la sala de emergencia, de manera supervisada como lo son la punción lumbar, manejo básico y avanzado de la vía aérea, acceso intraóseo. Utiliza el abordaje ecográfico al lado de cama del paciente de forma racional para la aproximación de la patología del niño que consulta a urgencias de tercer nivel de atención. Comunica la información pertinente e interactúa en forma asertiva con pacientes, familia y los demás miembros del equipo de salud. Realiza adecuadamente el soporte vital básico y avanzado pediátrico de manera supervisada. Comprende la importancia de los procesos encaminados a la seguridad del paciente, como la prescripción de medicamentos las órdenes verbales y la identificación de riesgos. Selecciona, analiza críticamente y resume la información científica actualizada para preparar y presentar clubes de revistas, seminarios y exposiciones. Realiza actividades educativas a padres, familiares, colegas y estudiantes en relación a la detección temprana de condiciones críticas del niño.
+COMPETENCIAS ESPECÍFICAS: Identifica el niño que requiere atención prioritaria al presentarse al servicio de emergencias de un tercer nivel de complejidad. Mediante el uso del abordaje primario y secundario, realiza una aproximación y manejo inicial y systematizado basado en la etiología y a su vez estabilización del niño que consulta al servicio de urgencias del tercer nivel de atención. Integra la fisiología y fisiopatología de la agudización con la epidemiología local como datos relevantes para realizar diagnósticos diferenciales en el niño que ingresa al servicio de urgencias. Conoce, utiliza e interpreta en forma racional las ayudas diagnósticas a partir de la historia clínica realizada. Conoce las principales medidas terapéuticas farmacológicas y no farmacológicas para el manejo de las patologías más frecuentes en urgencias de tercer nivel de atención. Participa de forma activa en la estabilización inicial del paciente que ingresa por descompensación aguda al servicio de urgencias. Conoce y desarrolla procedimientos en la sala de emergencia, de manera supervisada como lo son la punción lumbar, manejo básico y avanzado de la vía aérea, acceso intraóseo. Utiliza el abordaje ecográfico al lado de cama del paciente de forma racional para la aproximación de la patología del niño que consulta a urgencias de tercer nivel de atención. Comunica la información pertinente e interactúa en forma asertiva con pacientes, familia y los demás miembros del equipo de salud. Realiza adecuadamente el soporte vital básico y avanzado pediátrico de manera supervisada. Comprende la importancia de los procesos encaminados a la seguridad del paciente, como la prescripción de medicamentos las órdenes verbales y la identificación de riesgos. Selecciona, analiza críticamente y resume la información científica actualizada para preparar y presentar clubes de revistas, seminarios y exposiciones. Realiza actividades educativas a padres, familiares, colegas y estudiantes en relación a la detección temprana de condiciones críticas del niño.
 SABERES ESENCIALES: Interpretación de gases arteriales. Abordaje primario (ABCDE) y secundario del niño que ingresa a urgencias. Insuficiencia respiratoria aguda. Choque y sus diferentes tipos: hipovolémico, distributivo, obstructivo y cardiogénico. Paciente con compromiso del sensorio. Paciente con convulsiones y estado convulsivo. Abordaje del paciente quemado. El niño con BRUE. Paciente politraumatizado. Cetoacidosis diabética y estado hiperosmolar hiperglicemico. El niño con cáncer que ingresa al servicio de urgencias. Trauma no accidental y abuso. Trauma craneoencefalico grave. Intoxicaciones frecuentes. Transporte del paciente crítico.
 DESENLACES: Realizar una aproximación inicial a través del triángulo de aproximación pediátrica y el ABCDE y secundaria mediante la historia clínica y examen físico completo que permita priorizar y hacer un abordaje oportuno del niño que ingresa al servicio de urgencias. Reconoce y clasifica el niño que requiere atención inmediata en el servicio de urgencias. Reconoce los signos y síntomas específicos de las enfermedades pediátricas más frecuentes que se presentan en el servicio de urgencias de tercer nivel de complejidad y hace su estabilización inicial. Usa e integra el conocimiento de las ciencias básicas y la epidemiología para comprender e interpretar las enfermedades a la luz de los enfoques actuales. Identifica los estudios diagnósticos apropiados y racionales para cada patología. Realizar procedimientos acordes a su nivel de competencia en el servicio de urgencias: intubación orotraqueal, colocación de aguja intraósea, punción lumbar, paso de sonda orogástrica. Hace uso apropiado de la ecografía al pie de la cama, teniendo un estudio previo de sus variables físicas para la aproximación de paciente con enfermedad aguda. Demuestra un comportamiento ético y establecer una comunicación compasiva, respetuosa y asertiva con pacientes y familiares, así como con pares y equipo de salud, favoreciendo el trabajo en equipo. Identifica el niño en falla respiratoria y diferencia los tipos fisiopatológicos de falla respiratoria para su abordaje. Identifica el niño en choque y sus diferentes tipos para hacer un abordaje secuencial y una búsqueda etiológica activa. Establece un manejo estandarizado del niño con compromiso neurológico, infeccioso, hemato-oncológico basado en su fisiopatología y buscando una detección temprana de complicaciones que mejore resultados.`
 };
+
 let selectedSubjectName = "";
 let reportEvaluations = []; // Evaluaciones encontradas para el informe
 
@@ -332,19 +465,69 @@ async function selectSubject(subject) {
     Object.keys(itemSelections).forEach(k => delete itemSelections[k]);
     document.querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
     document.querySelectorAll('.score-input-row').forEach(r => { r.classList.add('hidden'); r.style.display = 'none'; });
+    
+    // Manage dynamic evaluation options
+    const evalTypeSelect = document.getElementById('evaluation-type');
+    evalTypeSelect.value = 'ronda'; // default
+    
+    const optTema = document.getElementById('opt-tema-central');
+    const optMinicex = document.getElementById('opt-minicex');
+    
+    if (subject === "Urgencias pediátricas III nivel de fundamentación") {
+        optTema.classList.remove('hidden');
+        optMinicex.classList.add('hidden');
+    } else if (subject === "Hospitalización pediátrica tercer nivel fundamentación") {
+        optMinicex.classList.remove('hidden');
+        optTema.classList.add('hidden');
+    } else {
+        optTema.classList.add('hidden');
+        optMinicex.classList.add('hidden');
+    }
+
+    handleEvaluationTypeChange(); // This will re-render the rubric
+
     await loadResidents();
     await loadTeachers(subject);
     showStep('step-form');
 }
 
+function handleEvaluationTypeChange() {
+    const evalType = document.getElementById('evaluation-type').value;
+    const seminarNameContainer = document.getElementById('seminar-name-container');
+    const seminarNameInput = document.getElementById('seminar-name');
+    
+    if (evalType === 'seminario' || evalType === 'tema_central' || evalType === 'minicex') {
+        seminarNameContainer.classList.remove('hidden');
+        seminarNameInput.required = true;
+    } else {
+        seminarNameContainer.classList.add('hidden');
+        seminarNameInput.required = false;
+        seminarNameInput.value = '';
+    }
+
+    renderRubric(); // Re-render rubric when type changes
+}
+
+function getCurrentRubric() {
+    const evalType = document.getElementById('evaluation-type') ? document.getElementById('evaluation-type').value : 'ronda';
+    if (evalType === 'seminario') return rubricSeminario;
+    if (evalType === 'tema_central' || evalType === 'minicex') return rubricTemaCentral;
+    return rubricStructure; // default Ronda Médica
+}
+
 /* ========================================================
-   RÚBRICA — BOTONES + INPUT EXACTO
+   RÚBRICA – BOTONES + INPUT EXACTO
    ======================================================== */
 function renderRubric() {
     const container = document.getElementById('rubric-table-container');
     container.innerHTML = '';
+    
+    // Reset selections on render
+    Object.keys(itemSelections).forEach(k => delete itemSelections[k]);
 
-    rubricStructure.forEach(cat => {
+    const activeRubric = getCurrentRubric();
+
+    activeRubric.forEach(cat => {
         const catDiv = document.createElement('div');
         catDiv.className = 'rubric-category';
         catDiv.innerText = cat.category;
@@ -443,11 +626,15 @@ function clampScore(itemId) {
 /* ========================================================
    MODAL RÚBRICA COMPLETA
    ======================================================== */
-function openFullRubric() { document.getElementById('full-rubric-modal').classList.remove('hidden'); }
+function openFullRubric() { 
+    generateFullRubricTable();
+    document.getElementById('full-rubric-modal').classList.remove('hidden'); 
+}
 function closeFullRubric() { document.getElementById('full-rubric-modal').classList.add('hidden'); }
 
 function generateFullRubricTable() {
     const c = document.getElementById('full-rubric-content');
+    const activeRubric = getCurrentRubric();
     let h = `<table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
         <thead><tr>
             <th style="padding:10px;border:1px solid #ddd;background:#005A9C;color:white;">Ítem</th>
@@ -456,7 +643,7 @@ function generateFullRubricTable() {
             <th style="padding:10px;border:1px solid #ddd;background:#17a2b8;color:white;">Bueno 3.6–4.5</th>
             <th style="padding:10px;border:1px solid #ddd;background:#28a745;color:white;">Sobresaliente 4.6–5.0</th>
         </tr></thead><tbody>`;
-    rubricStructure.forEach(cat => {
+    activeRubric.forEach(cat => {
         h += `<tr style="background:#f0f4f8;"><td colspan="5" style="padding:8px;font-weight:bold;text-align:center;color:#005A9C;">${cat.category}</td></tr>`;
         cat.items.forEach(item => {
             h += `<tr><td style="padding:10px;border:1px solid #ddd;font-weight:500;">${item.title}<br><span style="font-size:0.72rem;color:#666;">${item.desc}</span></td>
@@ -513,7 +700,8 @@ async function loadTeachers(rot) {
    CÁLCULO Y GUARDADO EN FIRESTORE
    ======================================================== */
 async function calculateResults() {
-    const allItems = rubricStructure.flatMap(cat => cat.items);
+    const activeRubric = getCurrentRubric();
+    const allItems = activeRubric.flatMap(cat => cat.items);
     const unselected = allItems.filter(item => !itemSelections[item.id]);
     if (unselected.length > 0) {
         alert(`Faltan ítems por calificar:\n${unselected.map(i => '• ' + i.title).join('\n')}`);
@@ -556,12 +744,17 @@ async function calculateResults() {
     // Guardar en Firestore
     try {
         showLoading('Guardando evaluación en Firebase...');
+        const evalType = document.getElementById('evaluation-type').value;
+        const actName = document.getElementById('seminar-name').value;
+
         const evalRef = await db.collection('evaluaciones').add({
             residente_id: resSel.value,
             residente_nombre: residentName,
             docente_id: currentUser ? currentUser.uid : 'anon',
             docente_nombre: teacherName,
             rotacion: selectedSubjectName,
+            tipo_evaluacion: evalType,
+            nombre_actividad: actName || null,
             nota_final: parseFloat(finalScore),
             aspectos_eticos: (eticosVal === 'SI'),
             fortalezas,
@@ -571,7 +764,7 @@ async function calculateResults() {
 
         // Guardar ítems individuales
         const batch = db.batch();
-        rubricStructure.forEach(cat => {
+        activeRubric.forEach(cat => {
             cat.items.forEach(item => {
                 const sel = itemSelections[item.id];
                 if (sel && sel.level !== 'na' && sel.value !== null) {
@@ -664,32 +857,6 @@ async function searchEvaluations() {
         reportEvaluations = evals;
 
         const previewDiv = document.getElementById('report-preview');
-        const contentDiv = document.getElementById('report-preview-content');
-        const resName = document.getElementById('report-resident').options[document.getElementById('report-resident').selectedIndex].text;
-        const teachers = [...new Set(evals.map(e => e.docente_nombre || 'Docente'))];
-        const avgScore = (evals.reduce((s, e) => s + parseFloat(e.nota_final), 0) / evals.length).toFixed(2);
-
-        let html = `
-            <p><span class="report-stat">${evals.length} evaluaciones</span>
-               <span class="report-stat">${teachers.length} docente(s)</span>
-               <span class="report-stat">Promedio: ${avgScore}</span></p>
-            <p style="margin:10px 0;"><strong>Residente:</strong> ${resName} &nbsp;|&nbsp; <strong>Rotación:</strong> ${rotation}</p>
-            <p style="margin-bottom:15px;"><strong>Período:</strong> ${dateFrom} a ${dateTo}</p>
-            <h4 style="margin-bottom:10px; color:var(--primary-color);">Detalle de evaluaciones:</h4>`;
-
-        evals.forEach((ev, i) => {
-            const fecha = ev.created_at && ev.created_at.toDate ? ev.created_at.toDate().toLocaleDateString('es-CO') : new Date().toLocaleDateString('es-CO');
-            const docName = ev.docente_nombre || 'Docente';
-            html += `<div class="report-eval-card">
-                <strong>#${i+1}</strong> — ${fecha} — <strong>${docName}</strong> — Nota: <strong>${ev.nota_final}</strong>
-                ${ev.fortalezas ? `<br><em style="color:var(--success);">✓ ${ev.fortalezas}</em>` : ''}
-                ${ev.por_mejorar ? `<br><em style="color:var(--warning);">△ ${ev.por_mejorar}</em>` : ''}
-            </div>`;
-        });
-
-        contentDiv.innerHTML = html;
-        previewDiv.classList.remove('hidden');
-
     } catch (e) {
         hideLoading();
         alert('Error: ' + e.message);
@@ -709,67 +876,113 @@ async function generateFinalReport() {
 
     showLoading('Consultando puntajes individuales...');
 
-    // 1. Obtener ítems individuales de cada evaluación en Firestore
     const evalIds = reportEvaluations.map(e => e.id);
     let allItems = [];
     try {
         if (evalIds.length > 0) {
-            // Firestore in query limit is 30, slice if necessary
             const chunks = [];
-            for (let i = 0; i < evalIds.length; i += 10) {
-                chunks.push(evalIds.slice(i, i + 10));
-            }
+            for (let i = 0; i < evalIds.length; i += 10) chunks.push(evalIds.slice(i, i + 10));
             for (const chunk of chunks) {
-                const snapshot = await db.collection('evaluacion_items')
-                    .where('evaluacion_id', 'in', chunk)
-                    .get();
+                const snapshot = await db.collection('evaluacion_items').where('evaluacion_id', 'in', chunk).get();
                 snapshot.forEach(doc => allItems.push(doc.data()));
             }
         }
-    } catch (e) { console.warn('No se pudieron obtener ítems:', e); }
+    } catch (e) { console.warn('No se pudieron obtener items:', e); }
 
-    // 2. Calcular promedios por ítem
-    const itemAverages = {};
-    const rubricItems = rubricStructure.flatMap(c => c.items.map(i => ({ ...i, category: c.category })));
+    const evalRonda = reportEvaluations.filter(e => e.tipo_evaluacion === 'ronda' || !e.tipo_evaluacion);
+    const evalSeminario = reportEvaluations.filter(e => e.tipo_evaluacion === 'seminario');
+    const evalTemaCentral = reportEvaluations.filter(e => e.tipo_evaluacion === 'tema_central' || e.tipo_evaluacion === 'minicex');
 
-    rubricItems.forEach(ri => {
-        const scores = allItems.filter(ai => ai.item_id === ri.id).map(ai => parseFloat(ai.nota));
-        if (scores.length > 0) {
-            itemAverages[ri.id] = {
-                title: ri.title, category: ri.category, weight: ri.weight,
-                avg: (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1),
-                count: scores.length, min: Math.min(...scores).toFixed(1), max: Math.max(...scores).toFixed(1)
-            };
+    let avgRonda = 0, avgSeminario = 0, avgTema = 0;
+    if(evalRonda.length > 0) avgRonda = evalRonda.reduce((s, e) => s + parseFloat(e.nota_final), 0) / evalRonda.length;
+    if(evalSeminario.length > 0) avgSeminario = evalSeminario.reduce((s, e) => s + parseFloat(e.nota_final), 0) / evalSeminario.length;
+    if(evalTemaCentral.length > 0) avgTema = evalTemaCentral.reduce((s, e) => s + parseFloat(e.nota_final), 0) / evalTemaCentral.length;
+
+    let avgFinalNum = 0;
+    let distribucionNotas = "";
+
+    if (rotation === "Urgencias peditricas III nivel de fundamentacin" || rotation === "Hospitalizacin peditrica tercer nivel fundamentacin") {
+        if (evalTemaCentral.length > 0 && evalSeminario.length > 0 && evalRonda.length > 0) {
+            avgFinalNum = (avgRonda * 0.5) + (avgSeminario * 0.3) + (avgTema * 0.2);
+            distribucionNotas = "Ronda Mdica 50%, Seminarios 30%, Tema Central/MiniCEX 20%";
+        } else if (evalTemaCentral.length === 0 && evalSeminario.length > 0 && evalRonda.length > 0) {
+            avgFinalNum = (avgRonda * 0.6) + (avgSeminario * 0.4);
+            distribucionNotas = "Ronda Mdica 60%, Seminarios 40% (No se evalu Tema Central/MiniCEX)";
+        } else if (evalTemaCentral.length > 0 && evalSeminario.length === 0 && evalRonda.length > 0) {
+            avgFinalNum = (avgRonda * 0.7) + (avgTema * 0.3);
+            distribucionNotas = "Ronda Mdica 70%, Tema Central/MiniCEX 30% (No se evaluaron Seminarios)";
+        } else if (evalTemaCentral.length === 0 && evalSeminario.length === 0 && evalRonda.length > 0) {
+            avgFinalNum = avgRonda;
+            distribucionNotas = "Ronda Mdica 100% (No se evaluaron Seminarios ni Tema Central/MiniCEX)";
+        } else {
+            const total = avgRonda + avgSeminario + avgTema;
+            const count = (avgRonda > 0 ? 1 : 0) + (avgSeminario > 0 ? 1 : 0) + (avgTema > 0 ? 1 : 0);
+            avgFinalNum = count > 0 ? total / count : 0;
+            distribucionNotas = "Promedio ajustado segn evaluaciones disponibles.";
         }
-    });
+    } else {
+        if (evalSeminario.length > 0 && evalRonda.length > 0) {
+            avgFinalNum = (avgRonda * 0.5) + (avgSeminario * 0.5);
+            distribucionNotas = "Ronda Mdica 50%, Seminarios 50%";
+        } else if (evalSeminario.length === 0 && evalRonda.length > 0) {
+            avgFinalNum = avgRonda;
+            distribucionNotas = "Ronda Mdica 100% (No se evaluaron Seminarios)";
+        } else if (evalSeminario.length > 0 && evalRonda.length === 0) {
+            avgFinalNum = avgSeminario;
+            distribucionNotas = "Seminarios 100% (No se evalu Ronda Mdica)";
+        } else {
+            avgFinalNum = 0;
+            distribucionNotas = "No hay evaluaciones vlidas.";
+        }
+    }
+    
+    const avgFinal = avgFinalNum.toFixed(2);
 
-    // 3. Recopilar comentarios
-    const allFortalezas = reportEvaluations.filter(e => e.fortalezas).map(e => `${e.docentes?.nombre || 'Docente'}: ${e.fortalezas}`);
-    const allMejoras = reportEvaluations.filter(e => e.por_mejorar).map(e => `${e.docentes?.nombre || 'Docente'}: ${e.por_mejorar}`);
+    const calcItemAverages = (evalList, rubricDef) => {
+        const itemAverages = {};
+        const listIds = evalList.map(e => e.id);
+        const relevantItems = allItems.filter(ai => listIds.includes(ai.evaluacion_id));
+        const rubricItems = rubricDef.flatMap(c => c.items.map(i => ({ ...i, category: c.category })));
+        
+        rubricItems.forEach(ri => {
+            const scores = relevantItems.filter(ai => ai.item_id === ri.id).map(ai => parseFloat(ai.nota));
+            if (scores.length > 0) {
+                itemAverages[ri.id] = {
+                    title: ri.title, category: ri.category, weight: ri.weight,
+                    avg: (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1),
+                    count: scores.length, min: Math.min(...scores).toFixed(1), max: Math.max(...scores).toFixed(1)
+                };
+            }
+        });
+        return itemAverages;
+    };
+
+    const itemAveragesRonda = calcItemAverages(evalRonda, rubricStructure);
+    const itemAveragesSeminario = calcItemAverages(evalSeminario, rubricSeminario);
+    const itemAveragesTema = calcItemAverages(evalTemaCentral, rubricTemaCentral);
+
+    const allFortalezas = reportEvaluations.filter(e => e.fortalezas).map(e => (e.docentes?.nombre || 'Docente') + ': ' + e.fortalezas);
+    const allMejoras = reportEvaluations.filter(e => e.por_mejorar).map(e => (e.docentes?.nombre || 'Docente') + ': ' + e.por_mejorar);
     const teachers = [...new Set(reportEvaluations.map(e => e.docentes?.nombre || 'Docente'))];
-    const avgFinal = (reportEvaluations.reduce((s, e) => s + parseFloat(e.nota_final), 0) / reportEvaluations.length).toFixed(2);
 
-    // 4. Generar análisis con IA o local
-    showLoading('Generando análisis cualitativo (IA)...');
+    showLoading('Generando anlisis cualitativo (IA)...');
     let aiAnalysis = '';
     const apiKey = localStorage.getItem('geminiApiKey');
     
     if (apiKey) {
         try {
-            aiAnalysis = await callGeminiForReport(apiKey, resName, rotation, avgFinal, itemAverages, allFortalezas, allMejoras, MICROCURRICULOS[rotation]);
+            aiAnalysis = await callGeminiForReport(apiKey, resName, rotation, avgFinal, itemAveragesRonda, allFortalezas, allMejoras, MICROCURRICULOS[rotation]);
         } catch (e) {
-            console.warn('Error en Gemini, usando síntesis cualitativa local:', e);
-            aiAnalysis = generateDescriptiveAnalysis(resName, rotation, avgFinal, itemAverages, allFortalezas, allMejoras) + "\n\n(Nota: " + e.message + ")";
+            console.warn('Error en Gemini, usando sntesis cualitativa local:', e);
+            aiAnalysis = generateDescriptiveAnalysis(resName, rotation, avgFinal, itemAveragesRonda, allFortalezas, allMejoras) + '\n\n(Nota: ' + e.message + ')';
         }
     } else {
-        console.warn('No hay API Key configurada. Usando síntesis cualitativa local.');
-        aiAnalysis = generateDescriptiveAnalysis(resName, rotation, avgFinal, itemAverages, allFortalezas, allMejoras);
+        aiAnalysis = generateDescriptiveAnalysis(resName, rotation, avgFinal, itemAveragesRonda, allFortalezas, allMejoras);
     }
 
-    // 5. Generar Word
     showLoading('Construyendo documento Word...');
     try {
-        await buildWordReport(resName, rotation, dateFrom, dateTo, teachers, reportEvaluations, itemAverages, avgFinal, aiAnalysis, allFortalezas, allMejoras);
+        await buildWordReport(resName, rotation, dateFrom, dateTo, teachers, reportEvaluations, itemAveragesRonda, itemAveragesSeminario, itemAveragesTema, avgRonda, avgSeminario, avgTema, avgFinal, distribucionNotas, aiAnalysis, allFortalezas, allMejoras);
     } catch (e) {
         console.error('Error generando Word:', e);
         alert('Error al generar el documento: ' + e.message);
@@ -778,39 +991,24 @@ async function generateFinalReport() {
     hideLoading();
 }
 
-/* ========================================================
-   SÍNTESIS CUALITATIVA DE LA ROTACIÓN (IA Gemini)
-   ======================================================== */
 async function callGeminiForReport(apiKey, resName, rotation, avgFinal, itemAverages, fort, mej, microcurriculo) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey;
     
-    const prompt = `
-Actúa como el Coordinador del Programa de Especialización en Pediatría. Redacta la "SÍNTESIS CUALITATIVA DEL DESEMPEÑO" para el informe final de rotación del residente.
-
-**Residente:** ${resName}
-**Rotación:** ${rotation}
-**Nota Promedio Final:** ${avgFinal} / 5.0
-
-**Microcurrículo de la rotación (Competencias esperadas):**
-${microcurriculo || 'No especificado.'}
-
-**Resumen de notas por ítem:**
-${Object.values(itemAverages).map(i => `- ${i.title}: ${i.avg}`).join('\\n')}
-
-**Comentarios de Fortalezas (debatidos por los docentes):**
-${fort.join(' | ')}
-
-**Comentarios por Mejorar (debatidos por los docentes):**
-${mej.join(' | ')}
-
-**Instrucciones estrictas:**
+    const prompt = Acta como el Coordinador del Programa de Especializacin en Pediatra. Redacta la SNTESIS CUALITATIVA DEL DESEMPEO para el informe final de rotacin del residente.
+Residente: \
+Rotacin: \
+Nota Promedio Final: \ / 5.0
+Microcurrculo de la rotacin (Competencias esperadas): \
+Resumen de notas por tem: \
+Comentarios de Fortalezas (debatidos por los docentes): \
+Comentarios por Mejorar (debatidos por los docentes): \
+Instrucciones estrictas:
 1. Redacta en tercera persona de forma muy formal y profesional.
 2. NO menciones los nombres de los docentes evaluadores bajo ninguna circunstancia.
-3. El informe debe constar de 2 a 3 párrafos bien estructurados.
-4. Conecta el desempeño real del residente (notas y comentarios) explícitamente con las competencias esperadas en el Microcurrículo.
-5. Si el promedio es menor a 3.6, enfatiza en un tono constructivo pero firme las áreas críticas a mejorar según el microcurrículo.
-6. NO incluyas saludos ni despedidas, ve directo al texto del informe.
-`;
+3. El informe debe constar de 2 a 3 prrafos bien estructurados.
+4. Conecta el desempeo real del residente (notas y comentarios) explcitamente con las competencias esperadas en el Microcurrculo.
+5. Si el promedio es menor a 3.6, enfatiza en un tono constructivo pero firme las reas crticas a mejorar segn el microcurrculo.
+6. NO incluyas saludos ni despedidas, ve directo al texto del informe.;
 
     const response = await fetch(url, {
         method: 'POST',
@@ -830,151 +1028,119 @@ ${mej.join(' | ')}
     if (data.candidates && data.candidates.length > 0) {
         return data.candidates[0].content.parts[0].text.trim();
     }
-    throw new Error('Respuesta vacía de Gemini');
+    throw new Error('Respuesta vaca de Gemini');
 }
 
-/* ========================================================
-   SÍNTESIS CUALITATIVA DE LA ROTACIÓN (Local Fallback)
-   ======================================================== */
 function generateDescriptiveAnalysis(resName, rotation, avg, items, fort, mej) {
     let q = avg >= 4.6 ? 'sobresaliente' : avg >= 3.6 ? 'bueno' : avg >= 3.0 ? 'aceptable' : 'insuficiente';
     const cleanFort = fort.map(f => f.replace(/^[^:]+:\s*/, ''));
     const cleanMej = mej.map(m => m.replace(/^[^:]+:\s*/, ''));
 
-    return `Durante el período evaluado en la rotación de ${rotation}, el/la residente ${resName} ha demostrado un desempeño general calificado como ${q.toUpperCase()}, obteniendo una nota promedio final de ${avg}/5.0 a partir de las evaluaciones consolidadas en este período.\n\n` +
-        (cleanFort.length > 0 ? `Entre las fortalezas destacadas por los docentes evaluadores se encuentran: ${cleanFort.join('. ')}.\n\n` : '') +
-        (cleanMej.length > 0 ? `Las áreas identificadas como oportunidades de mejora y recomendaciones incluyen: ${cleanMej.join('. ')}.\n\n` : '') +
-        `Se sugiere continuar con el fortalecimiento de las habilidades clínicas y académicas delineadas en el microcurrículo, fomentando un aprendizaje continuo en su especialización médica.`;
+    return Durante el perodo evaluado en la rotacin de \, el/la residente \ ha demostrado un desempeo general calificado como \, obteniendo una nota promedio final de \/5.0 a partir de las evaluaciones consolidadas en este perodo.\n\n +
+        (cleanFort.length > 0 ? Entre las fortalezas destacadas por los docentes evaluadores se encuentran: \.\n\n : '') +
+        (cleanMej.length > 0 ? Las reas identificadas como oportunidades de mejora y recomendaciones incluyen: \.\n\n : '') +
+        Se sugiere continuar con el fortalecimiento de las habilidades clnicas y acadmicas delineadas en el microcurrculo, fomentando un aprendizaje continuo en su especializacin mdica.;
 }
 
-/* ========================================================
-   GENERACIÓN DEL DOCUMENTO WORD
-   ======================================================== */
-async function buildWordReport(resName, rotation, dateFrom, dateTo, teachers, evaluations, itemAverages, avgFinal, aiAnalysis, fortalezas, mejoras) {
+async function buildWordReport(resName, rotation, dateFrom, dateTo, teachers, evaluations, itemAveragesRonda, itemAveragesSeminario, itemAveragesTema, avgRonda, avgSeminario, avgTema, avgFinal, distribucionNotas, aiAnalysis, fortalezas, mejoras) {
     const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, HeadingLevel, AlignmentType, WidthType, BorderStyle, ShadingType } = docx;
 
     const qualitative = avgFinal >= 4.6 ? 'SOBRESALIENTE' : avgFinal >= 3.6 ? 'BUENO' : avgFinal >= 3.0 ? 'ACEPTABLE' : 'INSUFICIENTE';
 
-    // Construir filas de la tabla de promedios
-    const tableRows = [
-        new TableRow({
-            tableHeader: true,
-            children: ['Competencia', 'Peso', 'Promedio', 'Mín', 'Máx', 'Evaluaciones'].map(text =>
-                new TableCell({
-                    children: [new Paragraph({ children: [new TextRun({ text, bold: true, color: 'FFFFFF', size: 20 })], alignment: AlignmentType.CENTER })],
-                    shading: { fill: '005A9C', type: ShadingType.CLEAR },
-                    width: { size: text === 'Competencia' ? 3500 : 1200, type: WidthType.DXA }
-                })
-            )
-        })
+    const createTableRows = (title, avgValue, itemAverages) => {
+        const rows = [
+            new TableRow({
+                children: [
+                    new TableCell({
+                        columnSpan: 6,
+                        shading: { type: ShadingType.CLEAR, fill: "F0F4F8" },
+                        children: [new Paragraph({ children: [new TextRun({ text: title + ' - Promedio: ' + (avgValue>0 ? avgValue.toFixed(2) : 'N/A'), bold: true, size: 20 })], alignment: AlignmentType.CENTER })]
+                    })
+                ]
+            }),
+            new TableRow({
+                tableHeader: true,
+                children: ['Competencia', 'Peso', 'Promedio', 'Mn', 'Mx', 'Evaluaciones'].map(text =>
+                    new TableCell({
+                        shading: { type: ShadingType.CLEAR, fill: "005A9C" },
+                        children: [new Paragraph({ children: [new TextRun({ text, color: 'FFFFFF', bold: true })], alignment: AlignmentType.CENTER })],
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 }
+                    })
+                )
+            })
+        ];
+
+        Object.values(itemAverages).forEach(item => {
+            rows.push(new TableRow({
+                children: [
+                    new TableCell({ children: [new Paragraph({ text: item.title, alignment: AlignmentType.LEFT })], margins: { top: 80, bottom: 80, left: 100, right: 100 } }),
+                    new TableCell({ children: [new Paragraph({ text: (item.weight * 100) + '%', alignment: AlignmentType.CENTER })] }),
+                    new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: item.avg, bold: true })], alignment: AlignmentType.CENTER })] }),
+                    new TableCell({ children: [new Paragraph({ text: item.min, alignment: AlignmentType.CENTER })] }),
+                    new TableCell({ text: item.max }),
+                    new TableCell({ children: [new Paragraph({ text: item.count.toString(), alignment: AlignmentType.CENTER })] })
+                ]
+            }));
+        });
+        return rows;
+    };
+
+    const allTableRows = [];
+    if (Object.keys(itemAveragesRonda).length > 0) allTableRows.push(...createTableRows('Ronda Mdica', avgRonda, itemAveragesRonda));
+    if (Object.keys(itemAveragesSeminario).length > 0) allTableRows.push(...createTableRows('Seminarios', avgSeminario, itemAveragesSeminario));
+    if (Object.keys(itemAveragesTema).length > 0) allTableRows.push(...createTableRows('Tema Central / MiniCEX', avgTema, itemAveragesTema));
+
+    const paragraphs = [
+        new Paragraph({ children: [new TextRun({ text: 'INFORME FINAL DE ROTACIN', bold: true, size: 32, color: '005A9C' })], alignment: AlignmentType.CENTER, spacing: { after: 400 } }),
+        new Paragraph({ children: [new TextRun({ text: 'Residente: ', bold: true, size: 22 }), new TextRun({ text: resName, size: 22 })] }),
+        new Paragraph({ children: [new TextRun({ text: 'Rotacin: ', bold: true, size: 22 }), new TextRun({ text: rotation, size: 22 })] }),
+        new Paragraph({ children: [new TextRun({ text: 'Perodo evaluado: ', bold: true, size: 22 }), new TextRun({ text: dateFrom + ' a ' + dateTo, size: 22 })] }),
+        new Paragraph({ children: [new TextRun({ text: 'Total de evaluaciones: ', bold: true, size: 22 }), new TextRun({ text: evaluations.length.toString(), size: 22 })] }),
+        new Paragraph({ spacing: { before: 60, after: 60 }, children: [new TextRun({ text: 'Distribucin de Notas: ', bold: true, size: 22 }), new TextRun({ text: distribucionNotas, size: 22, italics: true })] }),
+        new Paragraph({ spacing: { after: 200 }, children: [new TextRun({ text: 'Docentes evaluadores: ', bold: true, size: 22 }), new TextRun({ text: teachers.join(', '), size: 22 })] }),
+
+        new Paragraph({ spacing: { before: 300, after: 200 }, children: [new TextRun({ text: 'CALIFICACIN PROMEDIO POR COMPETENCIAS', bold: true, size: 26, color: '005A9C' })] })
     ];
 
-    Object.values(itemAverages).forEach(ia => {
-        tableRows.push(new TableRow({
-            children: [
-                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: ia.title, size: 20 })] })] }),
-                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: `${(ia.weight*100).toFixed(0)}%`, size: 20 })], alignment: AlignmentType.CENTER })] }),
-                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: `${ia.avg}`, bold: true, size: 20 })], alignment: AlignmentType.CENTER })] }),
-                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: `${ia.min}`, size: 20 })], alignment: AlignmentType.CENTER })] }),
-                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: `${ia.max}`, size: 20 })], alignment: AlignmentType.CENTER })] }),
-                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: `${ia.count}`, size: 20 })], alignment: AlignmentType.CENTER })] }),
-            ]
-        }));
-    });
-
-    // Sección de comentarios
-    const commentParagraphs = [];
-    if (fortalezas.length > 0) {
-        commentParagraphs.push(new Paragraph({ children: [new TextRun({ text: 'FORTALEZAS OBSERVADAS POR LOS DOCENTES:', bold: true, size: 22, color: '1A6632' })], spacing: { before: 200 } }));
-        fortalezas.forEach(f => commentParagraphs.push(new Paragraph({ children: [new TextRun({ text: `• ${f}`, size: 20 })], spacing: { before: 60 } })));
-    }
-    if (mejoras.length > 0) {
-        commentParagraphs.push(new Paragraph({ children: [new TextRun({ text: 'ASPECTOS POR MEJORAR SEÑALADOS:', bold: true, size: 22, color: 'DC3545' })], spacing: { before: 200 } }));
-        mejoras.forEach(m => commentParagraphs.push(new Paragraph({ children: [new TextRun({ text: `• ${m}`, size: 20 })], spacing: { before: 60 } })));
+    if (allTableRows.length > 0) {
+        paragraphs.push(new Table({ rows: allTableRows, width: { size: 100, type: WidthType.PERCENTAGE } }));
     }
 
-    // Párrafos del análisis IA
-    const aiParagraphs = aiAnalysis.split('\n').filter(p => p.trim()).map(p =>
-        new Paragraph({ children: [new TextRun({ text: p.trim(), size: 22 })], spacing: { before: 120, after: 120 } })
+    paragraphs.push(
+        new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 300, after: 100 }, children: [
+            new TextRun({ text: 'NOTA DEFINITIVA: ', bold: true, size: 28 }),
+            new TextRun({ text: avgFinal + ' / 5.0', bold: true, size: 36, color: avgFinal < 3.0 ? 'E74C3C' : avgFinal < 3.6 ? 'F39C12' : avgFinal < 4.6 ? '2980B9' : '27AE60' })
+        ]}),
+        new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 300 }, children: [new TextRun({ text: 'Desempeo: ' + qualitative, bold: true, size: 24, color: '666666' })] }),
+
+        new Paragraph({ spacing: { before: 200, after: 100 }, children: [new TextRun({ text: 'SNTESIS CUALITATIVA DEL DESEMPEO', bold: true, size: 24, color: '005A9C' })] }),
+        new Paragraph({ spacing: { after: 200 }, children: [new TextRun({ text: aiAnalysis, size: 22 })] }),
+
+        new Paragraph({ spacing: { before: 200, after: 100 }, children: [new TextRun({ text: 'OBSERVACIONES - FORTALEZAS', bold: true, size: 24, color: '27AE60' })] })
     );
 
-    // Construir documento
-    const doc = new Document({
-        sections: [{
-            properties: { page: { margin: { top: 1000, bottom: 1000, left: 1200, right: 1200 } } },
-            children: [
-                // Encabezado
-                new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 40 }, children: [
-                    new TextRun({ text: 'UNIVERSIDAD EIA', bold: true, size: 28, color: '005A9C' })
-                ] }),
-                new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 40 }, children: [
-                    new TextRun({ text: 'Hospital Pablo Tobón Uribe', size: 22, color: '333333' })
-                ] }),
-                new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 40 }, children: [
-                    new TextRun({ text: 'Programa de Especialización en Pediatría', size: 22, color: '333333' })
-                ] }),
-                new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 300 }, children: [
-                    new TextRun({ text: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', size: 16, color: '00A3E0' })
-                ] }),
+    fortalezas.forEach(f => paragraphs.push(new Paragraph({ text: ' ' + f, size: 22, spacing: { after: 60 } })));
 
-                // Título
-                new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 300 }, children: [
-                    new TextRun({ text: 'INFORME FINAL CONSOLIDADO DE ROTACIÓN', bold: true, size: 32, color: '005A9C' })
-                ] }),
+    paragraphs.push(new Paragraph({ spacing: { before: 200, after: 100 }, children: [new TextRun({ text: 'OBSERVACIONES - POR MEJORAR', bold: true, size: 24, color: 'E74C3C' })] }));
 
-                // Datos generales
-                new Paragraph({ children: [new TextRun({ text: 'Residente: ', bold: true, size: 22 }), new TextRun({ text: resName, size: 22 })] }),
-                new Paragraph({ children: [new TextRun({ text: 'Rotación: ', bold: true, size: 22 }), new TextRun({ text: rotation, size: 22 })] }),
-                new Paragraph({ children: [new TextRun({ text: 'Período evaluado: ', bold: true, size: 22 }), new TextRun({ text: `${dateFrom} a ${dateTo}`, size: 22 })] }),
-                new Paragraph({ children: [new TextRun({ text: 'Total de evaluaciones: ', bold: true, size: 22 }), new TextRun({ text: `${evaluations.length}`, size: 22 })] }),
-                new Paragraph({ spacing: { before: 60 }, children: [new TextRun({ text: 'Docentes evaluadores: ', bold: true, size: 22 }), new TextRun({ text: teachers.join(', '), size: 22 })] }),
+    mejoras.forEach(m => paragraphs.push(new Paragraph({ text: ' ' + m, size: 22, spacing: { after: 60 } })));
 
-                // Separador
-                new Paragraph({ spacing: { before: 300, after: 200 }, children: [new TextRun({ text: 'CALIFICACIÓN PROMEDIO POR COMPETENCIAS', bold: true, size: 26, color: '005A9C' })] }),
+    const doc = new Document({ sections: [{ properties: {}, children: paragraphs }] });
 
-                // Tabla de promedios
-                new Table({ rows: tableRows, width: { size: 100, type: WidthType.PERCENTAGE } }),
-
-                // Nota final
-                new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 300, after: 100 }, children: [
-                    new TextRun({ text: `NOTA DEFINITIVA DE ROTACIÓN: ${avgFinal} / 5.0 — ${qualitative}`, bold: true, size: 28, color: avgFinal >= 3.6 ? '1A6632' : 'DC3545' })
-                ] }),
-
-                // Análisis Cualitativo
-                new Paragraph({ spacing: { before: 400, after: 200 }, children: [new TextRun({ text: 'SÍNTESIS CUALITATIVA DEL DESEMPEÑO', bold: true, size: 26, color: '005A9C' })] }),
-                ...aiParagraphs,
-
-                // Comentarios
-                new Paragraph({ spacing: { before: 400, after: 200 }, children: [new TextRun({ text: 'SÍNTESIS DE COMENTARIOS DE LOS DOCENTES', bold: true, size: 26, color: '005A9C' })] }),
-                ...commentParagraphs,
-
-                // Firma
-                new Paragraph({ spacing: { before: 600 }, children: [new TextRun({ text: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', size: 16, color: 'CCCCCC' })] }),
-                new Paragraph({ spacing: { before: 400 }, children: [new TextRun({ text: '____________________________________', size: 22 })] }),
-                new Paragraph({ children: [new TextRun({ text: 'Coordinador del Programa de Pediatría', bold: true, size: 22 })] }),
-                new Paragraph({ children: [new TextRun({ text: 'Universidad EIA — Hospital Pablo Tobón Uribe', size: 20, color: '666666' })] }),
-                new Paragraph({ children: [new TextRun({ text: `Fecha de generación: ${new Date().toLocaleDateString('es-CO')}`, size: 20, color: '666666' })] }),
-            ]
-        }]
-    });
-
-    // Descargar
     const blob = await Packer.toBlob(doc);
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Informe_Final_${resName.replace(/\s+/g, '_')}_${rotation.substring(0, 20).replace(/\s+/g, '_')}.docx`;
+    a.download = 'Informe_Final_' + resName.replace(/ /g, '_') + '_' + rotation.substring(0, 20).replace(/ /g, '_') + '.docx';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
 
-/* ========================================================
-   UTILIDADES
-   ======================================================== */
 function showLoading(text) {
     document.getElementById('loading-text').innerText = text || 'Procesando...';
     document.getElementById('loading-overlay').classList.remove('hidden');
 }
 function hideLoading() { document.getElementById('loading-overlay').classList.add('hidden'); }
+
