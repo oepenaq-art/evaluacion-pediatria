@@ -286,3 +286,14 @@ select:focus, input:focus, textarea:focus {
     .score-input-row { flex-direction: column; align-items: flex-start !important; gap: 8px; }
     .score-input-row label { margin-bottom: 0; }
 }
+
+
+.btn-score-1 { background: #d32f2f; color: white; border-color: #b71c1c; }
+.btn-score-2 { background: #f44336; color: white; border-color: #d32f2f; }
+.btn-score-3 { background: #ff7043; color: white; border-color: #f4511e; }
+.btn-score-4 { background: #ffa726; color: white; border-color: #fb8c00; }
+.btn-score-5 { background: #ffca28; color: #333; border-color: #ffb300; }
+.btn-score-6 { background: #ffee58; color: #333; border-color: #fdd835; }
+.btn-score-7 { background: #d4e157; color: #333; border-color: #c0ca33; }
+.btn-score-8 { background: #9ccc65; color: #333; border-color: #7cb342; }
+.btn-score-9 { background: #66bb6a; color: white; border-color: #43a047; }
