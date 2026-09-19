@@ -485,25 +485,27 @@ async function selectSubject(subject) {
     document.querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
     document.querySelectorAll('.score-input-row').forEach(r => { r.classList.add('hidden'); r.style.display = 'none'; });
     
-    // Manage dynamic evaluation options
     const evalTypeSelect = document.getElementById('evaluation-type');
     evalTypeSelect.value = 'ronda'; // default
     
     const optTema = document.getElementById('opt-tema-central');
     const optMinicex = document.getElementById('opt-minicex');
+    const optRonda = evalTypeSelect.querySelector('option[value="ronda"]');
+    const optSeminario = evalTypeSelect.querySelector('option[value="seminario"]');
     
-    if (subject === "Urgencias pediátricas III nivel de fundamentación") {
-        optTema.classList.remove('hidden');
-        optMinicex.classList.add('hidden');
-    } else if (subject === "Hospitalización pediátrica tercer nivel fundamentación") {
+    if (subject.includes("Urgencias") || subject.includes("Hospitalizaci")) {
         optMinicex.classList.remove('hidden');
         optTema.classList.add('hidden');
+        if(optRonda) optRonda.innerText = 'Ronda Médica (50%)';
+        if(optSeminario) optSeminario.innerText = 'Seminario (30%)';
     } else {
         optTema.classList.add('hidden');
         optMinicex.classList.add('hidden');
+        if(optRonda) optRonda.innerText = 'Ronda Médica (60%)';
+        if(optSeminario) optSeminario.innerText = 'Seminario (40%)';
     }
 
-    handleEvaluationTypeChange(); // This will re-render the rubric
+    handleEvaluationTypeChange();
 
     await loadResidents();
     await loadTeachers(subject);
@@ -964,24 +966,39 @@ async function generateFinalReport() {
     let avgFinalNum = 0;
     let distribucionNotas = "";
 
-    // Global logic for ALL rotations
-    if (evalTemaCentral.length > 0 && evalSeminario.length > 0 && evalRonda.length > 0) {
-        avgFinalNum = (avgRonda * 0.5) + (avgSeminario * 0.3) + (avgTema * 0.2);
-        distribucionNotas = "Ronda Médica 50%, Seminarios 30%, Tema Central/MiniCEX 20%";
-    } else if (evalTemaCentral.length === 0 && evalSeminario.length > 0 && evalRonda.length > 0) {
-        avgFinalNum = (avgRonda * 0.6) + (avgSeminario * 0.4);
-        distribucionNotas = "Ronda Médica 60%, Seminarios 40% (No se evaluó Tema Central/MiniCEX)";
-    } else if (evalTemaCentral.length > 0 && evalSeminario.length === 0 && evalRonda.length > 0) {
-        avgFinalNum = (avgRonda * 0.7) + (avgTema * 0.3);
-        distribucionNotas = "Ronda Médica 70%, Tema Central/MiniCEX 30% (No se evaluaron Seminarios)";
-    } else if (evalTemaCentral.length === 0 && evalSeminario.length === 0 && evalRonda.length > 0) {
-        avgFinalNum = avgRonda;
-        distribucionNotas = "Ronda Médica 100% (No se evaluaron Seminarios ni Tema Central/MiniCEX)";
+    if (rotation === "Urgencias pediátricas III nivel de fundamentación" || rotation === "Hospitalización pediátrica tercer nivel fundamentación") {
+        if (evalTemaCentral.length > 0 && evalSeminario.length > 0 && evalRonda.length > 0) {
+            avgFinalNum = (avgRonda * 0.5) + (avgSeminario * 0.3) + (avgTema * 0.2);
+            distribucionNotas = "Ronda Médica 50%, Seminarios 30%, Tema Central/MiniCEX 20%";
+        } else if (evalTemaCentral.length === 0 && evalSeminario.length > 0 && evalRonda.length > 0) {
+            avgFinalNum = (avgRonda * 0.6) + (avgSeminario * 0.4);
+            distribucionNotas = "Ronda Médica 60%, Seminarios 40% (No se evaluó Tema Central/MiniCEX)";
+        } else if (evalTemaCentral.length > 0 && evalSeminario.length === 0 && evalRonda.length > 0) {
+            avgFinalNum = (avgRonda * 0.7) + (avgTema * 0.3);
+            distribucionNotas = "Ronda Médica 70%, Tema Central/MiniCEX 30% (No se evaluaron Seminarios)";
+        } else if (evalTemaCentral.length === 0 && evalSeminario.length === 0 && evalRonda.length > 0) {
+            avgFinalNum = avgRonda;
+            distribucionNotas = "Ronda Médica 100% (No se evaluaron Seminarios ni Tema Central/MiniCEX)";
+        } else {
+            const total = avgRonda + avgSeminario + avgTema;
+            const count = (avgRonda > 0 ? 1 : 0) + (avgSeminario > 0 ? 1 : 0) + (avgTema > 0 ? 1 : 0);
+            avgFinalNum = count > 0 ? total / count : 0;
+            distribucionNotas = "Promedio ajustado según evaluaciones disponibles.";
+        }
     } else {
-        const total = avgRonda + avgSeminario + avgTema;
-        const count = (avgRonda > 0 ? 1 : 0) + (avgSeminario > 0 ? 1 : 0) + (avgTema > 0 ? 1 : 0);
-        avgFinalNum = count > 0 ? total / count : 0;
-        distribucionNotas = "Promedio ajustado según evaluaciones disponibles.";
+        if (evalSeminario.length > 0 && evalRonda.length > 0) {
+            avgFinalNum = (avgRonda * 0.5) + (avgSeminario * 0.5);
+            distribucionNotas = "Ronda Médica 50%, Seminarios 50%";
+        } else if (evalSeminario.length === 0 && evalRonda.length > 0) {
+            avgFinalNum = avgRonda;
+            distribucionNotas = "Ronda Médica 100% (No se evaluaron Seminarios)";
+        } else if (evalSeminario.length > 0 && evalRonda.length === 0) {
+            avgFinalNum = avgSeminario;
+            distribucionNotas = "Seminarios 100% (No se evaluó Ronda Médica)";
+        } else {
+            avgFinalNum = 0;
+            distribucionNotas = "No hay evaluaciones válidas.";
+        }
     }
     
     const avgFinal = avgFinalNum.toFixed(2);
