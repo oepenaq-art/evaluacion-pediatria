@@ -173,7 +173,7 @@ const subjectsYear1 = [
     "Neumología y alergología pediátrica",
     "Neurología y rehabilitación pediátrica",
     "Urgencias pediátricas III nivel de fundamentación"
-];
+, "Infectología pediátrica"];
 
 const rubricSeminario = [
     {
@@ -223,6 +223,23 @@ const rubricSeminario = [
                     sobresaliente: "Clara, bien estructurada, orden lógico, facilita comprensión."
                 }
             }
+        ]
+    }
+];
+
+
+const rubricMiniCex = [
+    {
+        category: "Mini-CEX (Escala de 1 a 9)",
+        items: [
+            { id: "mc_anamnesis", title: "1. Anamnesis del paciente y/o acudiente", desc: "Facilita la narración del paciente y/o acudiente. Utiliza preguntas adecuadas de manera eficaz. Realiza un interrogatorio completo del motivo de consulta, enfermedad actual y antecedentes. Responde adecuadamente a mensajes claves verbales y no verbales.", weight: 1/8 },
+            { id: "mc_examen", title: "2. Examen físico del paciente", desc: "Sigue una secuencia lógica y eficiente céfalo caudal. Exploración centrada en el problema clínico. Informa al paciente. Respeta la comodidad del paciente.", weight: 1/8 },
+            { id: "mc_juicio", title: "3. Juicio clínico, análisis y diagnósticos", desc: "Realiza un diagnóstico apropiado y tiene en cuenta los diagnósticos diferenciales. Analiza de forma apropiada y crítica los diagnósticos.", weight: 1/8 },
+            { id: "mc_plan", title: "4. Plan de manejo", desc: "Establece un plan terapéutico acorde al diagnóstico. Propone ayudas diagnósticas pertinentes y completas, considerando los riesgos y beneficios.", weight: 1/8 },
+            { id: "mc_comunicacion", title: "5. Habilidades comunicativas", desc: "Utiliza un lenguaje claro para el paciente. Es empático. Es honesto y pertinente. Explica al paciente el diagnóstico y el plan. Educa al paciente y a su familia.", weight: 1/8 },
+            { id: "mc_organizacion", title: "6. Organización / eficiencia", desc: "Prioriza. Se ajusta al tiempo. Es concreto.", weight: 1/8 },
+            { id: "mc_profesionalismo", title: "7. Profesionalismo", desc: "Muestra respeto por el paciente y su familia. Establece confianza y una buena relación. Guarda la confidencialidad de la historia clínica. Considera los aspectos legales relevantes.", weight: 1/8 },
+            { id: "mc_evaluacion", title: "8. Evaluación clínica global", desc: "Demuestra de forma satisfactoria el juicio clínico, síntesis y efectividad. Utiliza adecuadamente los recursos. Es consciente de sus propias limitaciones.", weight: 1/8 }
         ]
     }
 ];
@@ -383,6 +400,8 @@ const rubricStructure = [
    MICROCURRÍCULOS (contexto para Gemini IA)
    ======================================================== */
 const MICROCURRICULOS = {
+    "Infectología pediátrica": "1. Reconoce la epidemiología, historia natural y fisiopatología de infecciones.\n2. Describe herramientas diagnósticas.\n3. Conoce principios de manejo farmacológico y uso de antibiograma.\n4. Conoce el uso racional de antibióticos y desescalonamiento.\n5. Conoce principios de resistencia antimicrobiana.\n6. Realiza educación sobre el uso responsable de antibióticos.",
+
     "Atención del parto y cuidados básicos del recién nacido": `ASIGNATURA: Atención del parto y cuidados básicos del recién nacido.
 JUSTIFICACIÓN: Los pediatras deben anticipar y manejar las necesidades médicas del recién nacido a término normal y prematuro tardío en sala de partos, manejar condiciones que no requieren UCI, hacer seguimiento en alojamiento conjunto y dar manejo a condiciones del período neonatal.
 COMPETENCIAS ESPECÍFICAS: Identificar y aplicar pautas basadas en evidencia para atención del recién nacido. Proporcionar atención de rutina y abordar problemas en los primeros 28 días. Asesoría en lactancia materna, uso de sucedáneos y puericultura neonatal. Juicio clínico para problemas comunes del recién nacido en el hogar. Generar confianza en padres. Direccionar tamizajes neonatales. Fisiología normal y patológica del recién nacido. Habilidades de adaptación neonatal y reanimación. Preparación del niño que requiere traslado.
@@ -511,7 +530,8 @@ function handleEvaluationTypeChange() {
 function getCurrentRubric() {
     const evalType = document.getElementById('evaluation-type') ? document.getElementById('evaluation-type').value : 'ronda';
     if (evalType === 'seminario') return rubricSeminario;
-    if (evalType === 'tema_central' || evalType === 'minicex') return rubricTemaCentral;
+    if (evalType === 'minicex') return rubricMiniCex;
+    if (evalType === 'tema_central') return rubricTemaCentral;
     return rubricStructure; // default Ronda Médica
 }
 
@@ -530,7 +550,11 @@ function renderRubric() {
     activeRubric.forEach(cat => {
         const catDiv = document.createElement('div');
         catDiv.className = 'rubric-category';
-        catDiv.innerText = cat.category;
+        let legendHtml = '';
+        if (activeRubric === rubricMiniCex) {
+             legendHtml = '<p style="font-size: 0.85rem; font-weight: normal; margin-top: 5px; color: #555;">Califique de 1 a 9 de acuerdo al desempeño de él o la residente, siendo 9 el puntaje más alto.</p>';
+        }
+        catDiv.innerHTML = cat.category + legendHtml;
         container.appendChild(catDiv);
 
         cat.items.forEach(item => {
@@ -544,14 +568,22 @@ function renderRubric() {
                     </div>
                 </div>
                 <div class="score-buttons" id="btns-${item.id}">
-                    ${SCORE_LEVELS.map(l => `
+                    ${activeRubric === rubricMiniCex ? 
+                        [1,2,3,4,5,6,7,8,9].map(num => `
+                            <button type="button" class="score-btn btn-score-${num}" id="btn-${item.id}-${num}"
+                                onclick="selectScore('${item.id}','${num}',this)">
+                                <strong style="font-size:1.2rem;">${num}</strong>
+                            </button>`).join('')
+                        :
+                        SCORE_LEVELS.map(l => `
                         <button type="button" class="score-btn ${l.cls}" id="btn-${item.id}-${l.key}"
                             onclick="selectScore('${item.id}','${l.key}',this)">
                             <strong>${l.label}</strong><br><span style="font-weight:400;font-size:0.72rem;">${l.range}</span>
-                        </button>`).join('')}
+                        </button>`).join('')
+                    }
                 </div>
                 <div class="score-input-row hidden" id="input-row-${item.id}"
-                     style="padding:10px 15px;background:#f9fbfd;display:flex;align-items:center;gap:12px;border-top:1px solid #eee;">
+                     style="padding:10px 15px;background:#f9fbfd;display:flex;align-items:center;gap:12px;border-top:1px solid #eee; ${activeRubric === rubricMiniCex ? 'display:none!important;' : ''}">
                     <label style="margin:0;font-size:0.88rem;white-space:nowrap;" for="exact-${item.id}">Nota (0.0 - 5.0):</label>
                     <input type="text" id="exact-${item.id}" inputmode="decimal"
                            style="width:110px;padding:8px 12px;font-size:1.1rem;font-weight:700;text-align:center;border:2px solid var(--primary-color);border-radius:8px;color:var(--primary-color);"
@@ -932,39 +964,24 @@ async function generateFinalReport() {
     let avgFinalNum = 0;
     let distribucionNotas = "";
 
-    if (rotation === "Urgencias pediátricas III nivel de fundamentación" || rotation === "Hospitalización pediátrica tercer nivel fundamentación") {
-        if (evalTemaCentral.length > 0 && evalSeminario.length > 0 && evalRonda.length > 0) {
-            avgFinalNum = (avgRonda * 0.5) + (avgSeminario * 0.3) + (avgTema * 0.2);
-            distribucionNotas = "Ronda Médica 50%, Seminarios 30%, Tema Central/MiniCEX 20%";
-        } else if (evalTemaCentral.length === 0 && evalSeminario.length > 0 && evalRonda.length > 0) {
-            avgFinalNum = (avgRonda * 0.6) + (avgSeminario * 0.4);
-            distribucionNotas = "Ronda Médica 60%, Seminarios 40% (No se evaluó Tema Central/MiniCEX)";
-        } else if (evalTemaCentral.length > 0 && evalSeminario.length === 0 && evalRonda.length > 0) {
-            avgFinalNum = (avgRonda * 0.7) + (avgTema * 0.3);
-            distribucionNotas = "Ronda Médica 70%, Tema Central/MiniCEX 30% (No se evaluaron Seminarios)";
-        } else if (evalTemaCentral.length === 0 && evalSeminario.length === 0 && evalRonda.length > 0) {
-            avgFinalNum = avgRonda;
-            distribucionNotas = "Ronda Médica 100% (No se evaluaron Seminarios ni Tema Central/MiniCEX)";
-        } else {
-            const total = avgRonda + avgSeminario + avgTema;
-            const count = (avgRonda > 0 ? 1 : 0) + (avgSeminario > 0 ? 1 : 0) + (avgTema > 0 ? 1 : 0);
-            avgFinalNum = count > 0 ? total / count : 0;
-            distribucionNotas = "Promedio ajustado según evaluaciones disponibles.";
-        }
+    // Global logic for ALL rotations
+    if (evalTemaCentral.length > 0 && evalSeminario.length > 0 && evalRonda.length > 0) {
+        avgFinalNum = (avgRonda * 0.5) + (avgSeminario * 0.3) + (avgTema * 0.2);
+        distribucionNotas = "Ronda Médica 50%, Seminarios 30%, Tema Central/MiniCEX 20%";
+    } else if (evalTemaCentral.length === 0 && evalSeminario.length > 0 && evalRonda.length > 0) {
+        avgFinalNum = (avgRonda * 0.6) + (avgSeminario * 0.4);
+        distribucionNotas = "Ronda Médica 60%, Seminarios 40% (No se evaluó Tema Central/MiniCEX)";
+    } else if (evalTemaCentral.length > 0 && evalSeminario.length === 0 && evalRonda.length > 0) {
+        avgFinalNum = (avgRonda * 0.7) + (avgTema * 0.3);
+        distribucionNotas = "Ronda Médica 70%, Tema Central/MiniCEX 30% (No se evaluaron Seminarios)";
+    } else if (evalTemaCentral.length === 0 && evalSeminario.length === 0 && evalRonda.length > 0) {
+        avgFinalNum = avgRonda;
+        distribucionNotas = "Ronda Médica 100% (No se evaluaron Seminarios ni Tema Central/MiniCEX)";
     } else {
-        if (evalSeminario.length > 0 && evalRonda.length > 0) {
-            avgFinalNum = (avgRonda * 0.5) + (avgSeminario * 0.5);
-            distribucionNotas = "Ronda Médica 50%, Seminarios 50%";
-        } else if (evalSeminario.length === 0 && evalRonda.length > 0) {
-            avgFinalNum = avgRonda;
-            distribucionNotas = "Ronda Médica 100% (No se evaluaron Seminarios)";
-        } else if (evalSeminario.length > 0 && evalRonda.length === 0) {
-            avgFinalNum = avgSeminario;
-            distribucionNotas = "Seminarios 100% (No se evaluó Ronda Médica)";
-        } else {
-            avgFinalNum = 0;
-            distribucionNotas = "No hay evaluaciones válidas.";
-        }
+        const total = avgRonda + avgSeminario + avgTema;
+        const count = (avgRonda > 0 ? 1 : 0) + (avgSeminario > 0 ? 1 : 0) + (avgTema > 0 ? 1 : 0);
+        avgFinalNum = count > 0 ? total / count : 0;
+        distribucionNotas = "Promedio ajustado según evaluaciones disponibles.";
     }
     
     const avgFinal = avgFinalNum.toFixed(2);
