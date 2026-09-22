@@ -54,7 +54,7 @@ body {
 .subtitle { font-size: 1.2rem; font-weight: 300; opacity: 0.9; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
 .user-bar {
-    display: inline-flex; align-items: center; gap: 15px;
+    display: inline-flex; align-items: center; 
     background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);
     padding: 8px 20px; border-radius: 30px; margin-top: 15px;
     border: 1px solid rgba(255,255,255,0.2); font-size: 0.92rem;
@@ -78,7 +78,7 @@ h2 { color: var(--primary-color); margin-bottom: 20px; font-weight: 600; border-
 h3 { color: var(--primary-color); margin-bottom: 15px; font-size: 1.2rem; }
 
 .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-.options-list { display: flex; flex-direction: column; gap: 10px; }
+.options-list { display: flex; flex-direction: column;  }
 
 .option-btn {
     background: var(--primary-color); color: white; border: none;
@@ -108,7 +108,7 @@ h3 { color: var(--primary-color); margin-bottom: 15px; font-size: 1.2rem; }
 }
 .submit-btn:hover { background: #218838; transform: translateY(-2px); }
 
-.form-row { display: flex; gap: 20px; margin-bottom: 20px; }
+.form-row { display: flex;  margin-bottom: 20px; }
 .form-group { margin-bottom: 20px; }
 .form-group.half { flex: 1; margin-bottom: 0; }
 
@@ -129,7 +129,7 @@ select:focus, input:focus, textarea:focus {
 /* Rubric */
 .rubric-container { background: white; border-radius: 12px; padding: 20px; margin-bottom: 25px; border: 1px solid #eee; }
 
-.rubric-legend { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; font-size: 0.82rem; font-weight: 600; }
+.rubric-legend { display: flex;  flex-wrap: wrap; margin-bottom: 20px; font-size: 0.82rem; font-weight: 600; }
 .legend-item { padding: 4px 10px; border-radius: 20px; color: white; }
 .legend-item.danger  { background: var(--danger); }
 .legend-item.warning { background: var(--warning); }
@@ -165,7 +165,7 @@ select:focus, input:focus, textarea:focus {
 
 /* Score Buttons */
 .score-buttons {
-    display: flex; gap: 6px; padding: 12px 15px;
+    display: flex;  padding: 12px 15px;
     background: white; flex-wrap: wrap;
 }
 
@@ -202,13 +202,13 @@ select:focus, input:focus, textarea:focus {
 .item-guide strong { color: var(--primary-color); }
 
 /* Radio buttons */
-.radio-group { display: flex; gap: 20px; }
-.radio-group label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: normal; }
+.radio-group { display: flex;  }
+.radio-group label { display: flex; align-items: center;  cursor: pointer; font-weight: normal; }
 .radio-group input[type="radio"] { width: 20px; height: 20px; accent-color: var(--primary-color); }
 
 /* Results */
 .results-summary {
-    display: flex; gap: 20px; background: white; padding: 20px;
+    display: flex;  background: white; padding: 20px;
     border-radius: 12px; margin-bottom: 20px; border: 1px solid #eee; align-items: center;
 }
 .final-score { text-align: center; padding-right: 20px; border-right: 2px solid #eee; min-width: 120px; }
@@ -240,7 +240,7 @@ select:focus, input:focus, textarea:focus {
     justify-content: center; align-items: center; z-index: 1000;
 }
 .modal-content { background: white; width: 90%; max-width: 500px; padding: 30px; border-radius: 20px; }
-.modal-actions { display: flex; gap: 15px; margin-top: 25px; }
+.modal-actions { display: flex;  margin-top: 25px; }
 
 /* Loading */
 .loading-overlay {
@@ -270,20 +270,20 @@ select:focus, input:focus, textarea:focus {
     .subtitle { font-size: 1rem; }
     .logo-container { width: 60px; height: 60px; margin-bottom: 10px; }
     
-    .form-row { flex-direction: column; gap: 15px; }
+    .form-row { flex-direction: column;  }
     
-    .score-buttons { flex-direction: column; gap: 8px; }
+    .score-buttons { flex-direction: column;  }
     .score-btn { width: 100%; min-width: 100%; font-size: 1rem; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; text-align: left; }
     .score-btn br { display: none; }
     .score-btn span { font-size: 0.9rem !important; }
     
-    .rubric-item-header { flex-direction: column; gap: 5px; }
+    .rubric-item-header { flex-direction: column;  }
     .rubric-item-weight { margin-left: 0; margin-top: 5px; display: inline-block; }
     
     .results-summary { flex-direction: column; text-align: center; }
     .final-score { border-right: none; border-bottom: 2px solid #eee; padding-right: 0; padding-bottom: 15px; margin-bottom: 5px; width: 100%; }
     
-    .score-input-row { flex-direction: column; align-items: flex-start !important; gap: 8px; }
+    .score-input-row { flex-direction: column; align-items: flex-start !important;  }
     .score-input-row label { margin-bottom: 0; }
 }
 
@@ -297,3 +297,24 @@ select:focus, input:focus, textarea:focus {
 .btn-score-7 { background: #d4e157; color: #333; border-color: #c0ca33; }
 .btn-score-8 { background: #9ccc65; color: #333; border-color: #7cb342; }
 .btn-score-9 { background: #66bb6a; color: white; border-color: #43a047; }
+
+/* ========================================================
+   COMPATIBILIDAD MÓVIL Y SAFARI (SOPORTE FLEX GAP)
+   ======================================================== */
+.options-list > * + * { margin-top: 10px; }
+.form-row > * + * { margin-left: 20px; }
+.rubric-legend > * { margin-right: 8px; margin-bottom: 8px; }
+.score-buttons > * + * { margin-left: 6px; }
+.radio-group > * + * { margin-left: 20px; }
+.radio-group label > * + * { margin-left: 8px; }
+
+@media (max-width: 768px) {
+    .form-row > * + * { margin-left: 0; margin-top: 15px; }
+    .score-buttons > * + * { margin-left: 0; margin-top: 8px; }
+    .rubric-item-header > * + * { margin-left: 0; margin-top: 5px; }
+    .score-input-row > * + * { margin-left: 0; margin-top: 8px; }
+    
+    /* Asegurar que los botones ocupen el ancho y no se superpongan */
+    .score-buttons .score-btn { width: 100%; margin-bottom: 8px; }
+    .score-buttons > * + * { margin-top: 0; }
+}
