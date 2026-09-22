@@ -15,6 +15,9 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const functions = firebase.functions();
 
+// Forzar persistencia local para navegadores móviles restrictivos
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(e => console.error("Persistence error:", e));
+
 let currentUser = null;
 let userRole = 'docente'; // 'docente' o 'coordinador'
 
@@ -43,25 +46,25 @@ auth.onAuthStateChanged(async (user) => {
         document.getElementById('user-info-text').innerText = `👤 ${currentUser.nombre} (${userRole.toUpperCase()})`;
 
         if (userRole === 'coordinador') {
-            document.getElementById('coord-hr')?.classList.remove('hidden');
-            document.getElementById('coord-title')?.classList.remove('hidden');
-            document.getElementById('coord-btn')?.classList.remove('hidden');
+            var el_coord_hr = document.getElementById('coord-hr'); if (el_coord_hr) el_coord_hr.classList.remove('hidden');
+            var el_coord_title = document.getElementById('coord-title'); if (el_coord_title) el_coord_title.classList.remove('hidden');
+            var el_coord_btn = document.getElementById('coord-btn'); if (el_coord_btn) el_coord_btn.classList.remove('hidden');
         } else {
-            document.getElementById('coord-hr')?.classList.add('hidden');
-            document.getElementById('coord-title')?.classList.add('hidden');
-            document.getElementById('coord-btn')?.classList.add('hidden');
+            var el_coord_hr = document.getElementById('coord-hr'); if (el_coord_hr) el_coord_hr.classList.add('hidden');
+            var el_coord_title = document.getElementById('coord-title'); if (el_coord_title) el_coord_title.classList.add('hidden');
+            var el_coord_btn = document.getElementById('coord-btn'); if (el_coord_btn) el_coord_btn.classList.add('hidden');
         }
 
         showStep('step-year');
     } else {
         currentUser = null;
-        document.getElementById('user-bar')?.classList.add('hidden');
+        var el_user_bar = document.getElementById('user-bar'); if (el_user_bar) el_user_bar.classList.add('hidden');
         showStep('step-login');
     }
 });
 
 async function handleLogin() {
-    const email = document.getElementById('login-email').value.trim();
+    const email = document.getElementById('login-email').value.trim().toLowerCase();
     const password = document.getElementById('login-password').value;
     const errorEl = document.getElementById('login-error');
     errorEl.classList.add('hidden');
@@ -1086,7 +1089,7 @@ Instrucciones estrictas:
 
     if (!response.ok) {
         const err = await response.json();
-        throw new Error(err.error?.message || 'Error en la API de Gemini');
+        throw new Error((err.error && err.error.message) || 'Error en la API de Gemini');
     }
 
     const data = await response.json();
